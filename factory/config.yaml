@@ -1,0 +1,25 @@
+project_name: Podcast de ventas — CORTEXIA 777
+plan_path: ../plan.yml
+language: es-neutro-tuteo
+hosts:
+  voice_a:
+    name: Ana
+    role: defiende la solución; conoce el material a fondo
+  voice_b:
+    name: Beto
+    role: oyente escéptico que evalúa comprar
+episode:
+  words_per_minute: 150
+output:
+  data_dir: data
+brand:
+  accent: '#f58a2e'
+  grad_1: '#7c5cbf'
+  grad_2: '#4a9eff'
+  grad_3: '#00e87a'
+audio:
+  extensions:
+  - .mp3
+  - .wav
+  - .m4a
+  - .ogg

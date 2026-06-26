@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fábrica de Podcasts — CORTEXIA 777</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Marked.js for Markdown parsing -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <style>
+    /* Estilos Base - Paleta CORTEXIA 777 */
+    :root {
+      --bg: #0d0d0f;
+      --card-bg: #13131a;
+      --border: #1e1e28;
+      --border-focus: #3a3a4e;
+      --text: #ffffff;
+      --text-muted: #6b6b80;
+      --accent: #f58a2e;
+      --accent-glow: rgba(245, 138, 46, 0.15);
+      
+      --grad-1: #7c5cbf;
+      --grad-2: #4a9eff;
+      --grad-3: #00e87a;
+      
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-mono: 'DM Mono', monospace;
+      
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      
+      --shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: var(--radius-sm);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text-muted);
+    }
+
+    /* Layout & Container */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header Nav */
+    header {
+      background-color: rgba(19, 19, 26, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 16px 0;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
+
+    .brand i {
+      color: var(--accent);
+      font-size: 24px;
+      text-shadow: 0 0 10px rgba(245, 138, 46, 0.3);
+    }
+
+    .brand h1 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--grad-1) 0%, var(--grad-2) 50%, var(--grad-3) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    nav {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+    }
+
+    .nav-btn:hover {
+      color: var(--text);
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-btn.active {
+      color: var(--accent);
+      background-color: var(--accent-glow);
+      border-color: rgba(245, 138, 46, 0.3);
+    }
+
+    /* Main Area */
+    main {
+      flex: 1;
+      padding: 40px 0;
+    }
+
+    /* Components & Views */
+    .view {
+      display: none;
+    }
+
+    .view.active {
+      display: block;
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hero / Intro Section */
+    .hero-banner {
+      margin-bottom: 40px;
+      text-align: left;
+    }
+
+    .hero-banner h2 {
+      font-family: var(--font-display);
+      font-size: 38px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, var(--grad-1) 0%, var(--grad-2) 50%, var(--grad-3) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-banner p {
+      color: var(--text-muted);
+      font-size: 16px;
+      max-width: 700px;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .stat-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--text-muted);
+      opacity: 0.3;
+    }
+
+    .stat-card.accented::before {
+      background: var(--accent);
+      opacity: 1;
+    }
+
+    .stat-card.success::before {
+      background: var(--grad-3);
+      opacity: 1;
+    }
+
+    .stat-card:hover {
+      border-color: var(--border-focus);
+      transform: translateY(-2px);
+    }
+
+    .stat-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .stat-val {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 700;
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 6px;
+      background-color: var(--border);
+      border-radius: var(--radius-pill);
+      margin-top: 12px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--grad-3) 100%);
+      width: 0%;
+      transition: width 0.6s ease;
+      border-radius: var(--radius-pill);
+    }
+
+    /* Action Buttons Bar */
+    .actions-bar {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      background-color: var(--card-bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 12px 24px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: var(--transition);
+    }
+
+    .btn:hover {
+      border-color: var(--text-muted);
+      background-color: rgba(255, 255, 255, 0.03);
+    }
+
+    .btn-primary {
+      background-color: var(--accent);
+      color: #000;
+      border-color: var(--accent);
+    }
+
+    .btn-primary:hover {
+      background-color: #ff9d47;
+      border-color: #ff9d47;
+      box-shadow: 0 0 20px rgba(245, 138, 46, 0.25);
+    }
+
+    .btn-disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    /* Episode Cards Grid */
+    .episodes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 24px;
+    }
+
+    .episode-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 200px;
+      transition: var(--transition);
+    }
+
+    .episode-card:hover {
+      border-color: rgba(245, 138, 46, 0.5);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .ep-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .ep-num {
+      font-family: var(--font-mono);
+      color: var(--accent);
+      font-weight: 500;
+      font-size: 14px;
+      border: 1px solid rgba(245, 138, 46, 0.2);
+      background-color: rgba(245, 138, 46, 0.05);
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+    }
+
+    .ep-kind {
+      color: var(--text-muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    .ep-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .ep-angle {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 20px;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .ep-badges {
+      display: flex;
+      gap: 12px;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+      font-size: 12px;
+    }
+
+    .badge-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge-item i {
+      font-size: 12px;
+    }
+
+    .badge-item.done {
+      color: var(--grad-3);
+    }
+
+    .badge-item.pending {
+      color: var(--text-muted);
+    }
+
+    .badge-audio {
+      margin-left: auto;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+    }
+
+    .badge-audio.ready {
+      background-color: rgba(0, 232, 122, 0.1);
+      color: var(--grad-3);
+    }
+
+    .badge-audio.pending {
+      background-color: rgba(255, 255, 255, 0.03);
+      color: var(--text-muted);
+      border: 1px dashed var(--border);
+    }
+
+    /* Detail View Styles */
+    .back-nav {
+      margin-bottom: 30px;
+    }
+
+    .detail-header {
+      margin-bottom: 32px;
+    }
+
+    .detail-header .ep-num-large {
+      font-family: var(--font-mono);
+      font-size: 16px;
+      color: var(--accent);
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+
+    .detail-header h2 {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .detail-header p.subtitle {
+      color: var(--text-muted);
+      font-size: 16px;
+      max-width: 800px;
+    }
+
+    .detail-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    @media (min-width: 900px) {
+      .detail-layout {
+        grid-template-columns: 340px 1fr;
+      }
+    }
+
+    /* Detail Left Side (Audio & Action Box) */
+    .detail-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .sidebar-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+    }
+
+    .sidebar-card h3 {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .audio-player-zone {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .audio-player-zone audio {
+      width: 100%;
+      border-radius: var(--radius-sm);
+    }
+
+    /* Uploader Area */
+    .file-upload-wrapper {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius-md);
+      padding: 30px 20px;
+      text-align: center;
+      cursor: pointer;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .file-upload-wrapper:hover {
+      border-color: var(--accent);
+      background-color: rgba(245, 138, 46, 0.02);
+    }
+
+    .file-upload-wrapper input[type="file"] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .file-upload-wrapper i {
+      font-size: 32px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .file-upload-wrapper p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .file-upload-wrapper strong {
+      color: var(--text);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* Prompt Box */
+    .prompt-box {
+      background-color: rgba(245, 138, 46, 0.03);
+      border: 1px solid rgba(245, 138, 46, 0.15);
+      border-radius: var(--radius-md);
+      padding: 20px;
+    }
+
+    .prompt-box h4 {
+      font-family: var(--font-display);
+      color: var(--accent);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .prompt-box p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    /* Tabs Content Area */
+    .tabs-wrapper {
+      display: flex;
+      flex-direction: column;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .tabs-nav {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      background-color: rgba(255, 255, 255, 0.02);
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      padding: 16px 24px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: var(--transition);
+    }
+
+    .tab-btn:hover {
+      color: var(--text);
+      background-color: rgba(255, 255, 255, 0.01);
+    }
+
+    .tab-btn.active {
+      color: var(--text);
+      border-bottom-color: var(--accent);
+    }
+
+    .tabs-content {
+      padding: 30px;
+      max-height: 700px;
+      overflow-y: auto;
+    }
+
+    .tab-pane {
+      display: none;
+    }
+
+    .tab-pane.active {
+      display: block;
+    }
+
+    /* Rendered Markdown Styling */
+    .markdown-body {
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .markdown-body h1, .markdown-body h2, .markdown-body h3 {
+      font-family: var(--font-display);
+      margin-top: 24px;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    .markdown-body h1 { font-size: 24px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+    .markdown-body h2 { font-size: 20px; }
+    .markdown-body h3 { font-size: 17px; }
+
+    .markdown-body p, .markdown-body ul, .markdown-body ol {
+      margin-bottom: 16px;
+    }
+
+    .markdown-body blockquote {
+      border-left: 4px solid var(--accent);
+      padding-left: 16px;
+      color: var(--text-muted);
+      font-style: italic;
+      margin: 16px 0;
+      background-color: rgba(255, 255, 255, 0.01);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 12px 16px;
+    }
+
+    .markdown-body ul, .markdown-body ol {
+      padding-left: 20px;
+    }
+
+    .markdown-body code {
+      font-family: var(--font-mono);
+      background-color: rgba(255, 255, 255, 0.04);
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+
+    .markdown-body pre {
+      background-color: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      overflow-x: auto;
+      margin-bottom: 16px;
+    }
+
+    .markdown-body pre code {
+      background-color: transparent;
+      padding: 0;
+      border-radius: 0;
+      font-size: 13px;
+    }
+
+    /* Config Page Form */
+    .config-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 32px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .config-card h2 {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+
+    .form-group-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    @media (min-width: 600px) {
+      .form-group-row {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .form-group input, .form-group textarea {
+      background-color: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 15px;
+      padding: 12px 16px;
+      transition: var(--transition);
+      width: 100%;
+    }
+
+    .form-group input:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(245, 138, 46, 0.1);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    /* Floating Toast / Alerts */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background-color: #13131a;
+      border-left: 4px solid var(--accent);
+      box-shadow: var(--shadow);
+      padding: 16px 24px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 1000;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast.success {
+      border-left-color: var(--grad-3);
+    }
+
+    .toast.error {
+      border-left-color: red;
+    }
+
+    /* Modal Overlay Spinner */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(13, 13, 15, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition);
+    }
+
+    .loading-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(255, 255, 255, 0.1);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 1s infinite linear;
+      margin-bottom: 20px;
+    }
+
+    .loading-overlay p {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Loading Screen Overlay -->
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="spinner"></div>
+    <p id="loadingMsg">Procesando...</p>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="container header-content">
+      <div class="brand" onclick="app.showView('dashboard')">
+        <i class="fa-solid fa-microphone-lines"></i>
+        <h1>Fábrica de Podcasts</h1>
+      </div>
+      <nav>
+        <button id="nav-dashboard" class="nav-btn active" onclick="app.showView('dashboard')">
+          <i class="fa-solid fa-chart-line"></i> Panel Principal
+        </button>
+        <button id="nav-config" class="nav-btn" onclick="app.showView('config')">
+          <i class="fa-solid fa-sliders"></i> Configuración
+        </button>
+        <div id="nav-pct-badge" class="badge-audio ready" style="margin-left: 12px; font-family: var(--font-mono); font-size: 13px;">
+          Audio: 0%
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main View Area -->
+  <main class="container">
+    
+    <!-- 1. VIEW: DASHBOARD (HOME) -->
+    <div id="view-dashboard" class="view active">
+      <div class="hero-banner">
+        <h2>Fábrica de Podcasts <span class="gradient-text">CORTEXIA 777</span></h2>
+        <p>Genera guiones a dos voces, briefs de producción de NotebookLM y piezas de distribución. Sube tus audios una vez generados para completar el pipeline.</p>
+      </div>
+
+      <!-- KPIs -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-label">Total Episodios</span>
+          <span id="kpi-total" class="stat-val">--</span>
+        </div>
+        <div class="stat-card accented">
+          <span class="stat-label">Guiones Listos</span>
+          <span id="kpi-scripts" class="stat-val">--</span>
+        </div>
+        <div class="stat-card accented">
+          <span class="stat-label">Briefs Listos</span>
+          <span id="kpi-briefs" class="stat-val">--</span>
+        </div>
+        <div class="stat-card success">
+          <span class="stat-label">Avance de Audio</span>
+          <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+            <span id="kpi-audio" class="stat-val">--</span>
+            <span id="kpi-pct" style="font-family: var(--font-mono); color: var(--grad-3); font-weight: 500; font-size: 16px;">--%</span>
+          </div>
+          <div class="progress-bar-container">
+            <div id="kpi-progress-bar" class="progress-bar-fill"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="actions-bar">
+        <button class="btn btn-primary" onclick="app.buildAll()">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> Construir Todo
+        </button>
+        <button class="btn" onclick="app.refreshAudio()">
+          <i class="fa-solid fa-arrows-rotate"></i> Sincronizar Audios
+        </button>
+      </div>
+
+      <!-- Episodes Grid -->
+      <div id="episodes-container" class="episodes-grid">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
+    <!-- 2. VIEW: DETAIL -->
+    <div id="view-detail" class="view">
+      <div class="back-nav">
+        <button class="btn" onclick="app.showView('dashboard')">
+          <i class="fa-solid fa-arrow-left"></i> Volver al Panel
+        </button>
+      </div>
+
+      <div class="detail-header">
+        <span id="detail-ep-num" class="ep-num-large">EPISODIO --</span>
+        <h2 id="detail-title">Cargando título...</h2>
+        <p id="detail-angle" class="subtitle">Cargando ángulo...</p>
+      </div>
+
+      <div class="detail-layout">
+        <!-- Sidebar: Audio Uploader, Listen, Custom Prompt -->
+        <div class="detail-sidebar">
+          
+          <!-- Audio Card -->
+          <div class="sidebar-card">
+            <h3><i class="fa-solid fa-file-audio"></i> Audio Overview</h3>
+            <div id="audio-panel-content" class="audio-player-zone">
+              <!-- Rendered dynamically depending on audio state -->
+            </div>
+          </div>
+
+          <!-- Prompt Customization Card -->
+          <div class="sidebar-card prompt-box">
+            <h4><i class="fa-solid fa-terminal"></i> NotebookLM Prompt</h4>
+            <p>Usa este prompt personalizado en el campo "Customize" de NotebookLM para calibrar las voces A y B.</p>
+            <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="app.copyCustomPrompt()">
+              <i class="fa-solid fa-copy"></i> Copiar Prompt
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Main Content tabs -->
+        <div class="tabs-wrapper">
+          <div class="tabs-nav">
+            <button id="tab-btn-script" class="tab-btn active" onclick="app.switchTab('script')">Guión</button>
+            <button id="tab-btn-brief" class="tab-btn" onclick="app.switchTab('brief')">Brief NotebookLM</button>
+            <button id="tab-btn-distribution" class="tab-btn" onclick="app.switchTab('distribution')">Distribución</button>
+          </div>
+          
+          <div class="tabs-content">
+            <!-- Script Pane -->
+            <div id="tab-pane-script" class="tab-pane active">
+              <div class="actions-bar" style="margin-bottom: 20px; justify-content: flex-end;">
+                <button class="btn" onclick="app.copyTabContent('script')">
+                  <i class="fa-solid fa-copy"></i> Copiar Guión
+                </button>
+              </div>
+              <div id="script-content" class="markdown-body">Cargando...</div>
+            </div>
+
+            <!-- Brief Pane -->
+            <div id="tab-pane-brief" class="tab-pane">
+              <div class="actions-bar" style="margin-bottom: 20px; justify-content: flex-end;">
+                <button class="btn" onclick="app.copyTabContent('brief')">
+                  <i class="fa-solid fa-copy"></i> Copiar Brief
+                </button>
+              </div>
+              <div id="brief-content" class="markdown-body">Cargando...</div>
+            </div>
+
+            <!-- Distribution Pane -->
+            <div id="tab-pane-distribution" class="tab-pane">
+              <div class="actions-bar" style="margin-bottom: 20px; justify-content: flex-end;">
+                <button class="btn" onclick="app.copyTabContent('distribution')">
+                  <i class="fa-solid fa-copy"></i> Copiar Todo
+                </button>
+              </div>
+              <div id="distribution-content" class="markdown-body">Cargando...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. VIEW: CONFIGURATION -->
+    <div id="view-config" class="view">
+      <div class="config-card">
+        <h2>Configuración del Proyecto</h2>
+        
+        <form id="config-form" onsubmit="app.saveConfig(event)">
+          <div class="form-group">
+            <label for="cfg-project-name">Nombre del Proyecto</label>
+            <input type="text" id="cfg-project-name" required>
+          </div>
+
+          <div class="form-group-row">
+            <div class="form-group">
+              <label for="cfg-plan-path">Ruta de plan.yml (Relativo a factory/)</label>
+              <input type="text" id="cfg-plan-path" required>
+            </div>
+            <div class="form-group">
+              <label for="cfg-wpm">Palabras por Minuto (Lectura)</label>
+              <input type="number" id="cfg-wpm" min="10" max="400" required>
+            </div>
+          </div>
+
+          <h3 style="font-family: var(--font-display); font-size: 16px; margin: 24px 0 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px; color: var(--text-muted);">
+            Voces y Roles (NotebookLM)
+          </h3>
+
+          <div class="form-group-row">
+            <div class="form-group">
+              <label for="cfg-voice-a-name">Nombre Voz A</label>
+              <input type="text" id="cfg-voice-a-name" required>
+            </div>
+            <div class="form-group">
+              <label for="cfg-voice-b-name">Nombre Voz B</label>
+              <input type="text" id="cfg-voice-b-name" required>
+            </div>
+          </div>
+
+          <div class="form-group-row">
+            <div class="form-group">
+              <label for="cfg-voice-a-role">Rol / Enfoque Voz A</label>
+              <textarea id="cfg-voice-a-role" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="cfg-voice-b-role">Rol / Enfoque Voz B</label>
+              <textarea id="cfg-voice-b-role" required></textarea>
+            </div>
+          </div>
+
+          <h3 style="font-family: var(--font-display); font-size: 16px; margin: 24px 0 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px; color: var(--text-muted);">
+            Colores de Marca
+          </h3>
+
+          <div class="form-group-row" style="grid-template-columns: repeat(4, 1fr);">
+            <div class="form-group">
+              <label for="cfg-accent">Acento</label>
+              <input type="text" id="cfg-accent" required>
+            </div>
+            <div class="form-group">
+              <label for="cfg-grad1">Degradado Inicio</label>
+              <input type="text" id="cfg-grad1" required>
+            </div>
+            <div class="form-group">
+              <label for="cfg-grad2">Degradado Medio</label>
+              <input type="text" id="cfg-grad2" required>
+            </div>
+            <div class="form-group">
+              <label for="cfg-grad3">Degradado Fin</label>
+              <input type="text" id="cfg-grad3" required>
+            </div>
+          </div>
+
+          <div style="margin-top: 32px; display: flex; justify-content: flex-end;">
+            <button type="submit" class="btn btn-primary">
+              <i class="fa-solid fa-floppy-disk"></i> Guardar Cambios
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Floating Alert Toast -->
+  <div id="toast" class="toast">
+    <i class="fa-solid fa-circle-check" style="color: var(--grad-3);"></i>
+    <span id="toast-text">Cambios guardados con éxito</span>
+  </div>
+
+  <!-- JavaScript SPA logic -->
+  <script>
+    class PodcastFactoryApp {
+      constructor() {
+        this.apiBase = '';
+        this.state = null;
+        this.episodes = [];
+        this.activeEpisode = null;
+        this.activeTab = 'script';
+        this.rawConfig = null;
+      }
+
+      async init() {
+        await this.loadState();
+        await this.loadConfig();
+      }
+
+      showLoading(msg = "Procesando...") {
+        document.getElementById('loadingMsg').innerText = msg;
+        document.getElementById('loadingOverlay').classList.add('active');
+      }
+
+      hideLoading() {
+        document.getElementById('loadingOverlay').classList.remove('active');
+      }
+
+      showToast(text, type = 'success') {
+        const toast = document.getElementById('toast');
+        const toastText = document.getElementById('toast-text');
+        
+        toast.className = 'toast';
+        if (type === 'success') {
+          toast.classList.add('success');
+          toast.querySelector('i').className = 'fa-solid fa-circle-check';
+          toast.querySelector('i').style.color = 'var(--grad-3)';
+        } else if (type === 'error') {
+          toast.classList.add('error');
+          toast.querySelector('i').className = 'fa-solid fa-circle-exclamation';
+          toast.querySelector('i').style.color = 'red';
+        }
+        
+        toastText.innerText = text;
+        toast.classList.add('show');
+        
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3000);
+      }
+
+      async loadState() {
+        try {
+          const res = await fetch(`${this.apiBase}/api/state`);
+          if (!res.ok) throw new Error("Fallo al obtener estado");
+          const data = await res.json();
+          this.state = data.state;
+          this.updateKPIs(data.summary);
+          await this.loadEpisodes();
+        } catch (e) {
+          console.error(e);
+          this.showToast("Error de conexión al cargar estado", "error");
+        }
+      }
+
+      updateKPIs(summary) {
+        document.getElementById('kpi-total').innerText = summary.total;
+        document.getElementById('kpi-scripts').innerText = summary.scripts;
+        document.getElementById('kpi-briefs').innerText = summary.briefs;
+        document.getElementById('kpi-audio').innerText = `${summary.audio} / ${summary.total}`;
+        document.getElementById('kpi-pct').innerText = `${summary.pct_audio}%`;
+        document.getElementById('kpi-progress-bar').style.width = `${summary.pct_audio}%`;
+        
+        const badge = document.getElementById('nav-pct-badge');
+        badge.innerText = `Audio: ${summary.pct_audio}%`;
+        if (summary.pct_audio === 100) {
+          badge.className = 'badge-audio ready';
+        } else {
+          badge.className = 'badge-audio pending';
+        }
+      }
+
+      async loadEpisodes() {
+        try {
+          const res = await fetch(`${this.apiBase}/api/episodes`);
+          if (!res.ok) throw new Error("Error al obtener episodios");
+          this.episodes = await res.json();
+          this.renderEpisodesGrid();
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      renderEpisodesGrid() {
+        const container = document.getElementById('episodes-container');
+        container.innerHTML = '';
+
+        if (this.episodes.length === 0) {
+          container.innerHTML = `
+            <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted); border: 1px dashed var(--border); border-radius: var(--radius-md);">
+              <i class="fa-solid fa-box-open" style="font-size: 40px; margin-bottom: 12px; display:block;"></i>
+              No hay episodios generados. Pulsa en <strong>Construir Todo</strong> para empezar.
+            </div>
+          `;
+          return;
+        }
+
+        this.episodes.forEach(ep => {
+          const card = document.createElement('div');
+          card.className = 'episode-card';
+          card.onclick = () => this.openEpisodeDetail(ep.slug);
+
+          const scriptDone = ep.script_done;
+          const briefDone = ep.brief_done;
+          const distDone = ep.dist_done;
+          const audioDone = ep.audio_present;
+
+          card.innerHTML = `
+            <div>
+              <div class="ep-card-top">
+                <span class="ep-num">EP ${ep.number}</span>
+                <span class="ep-kind">${ep.kind === 'trailer' ? 'Tráiler' : 'Episodio'}</span>
+              </div>
+              <h3 class="ep-title">${ep.title}</h3>
+              <p class="ep-angle">${ep.angle || '<em>Sin ángulo definido</em>'}</p>
+            </div>
+            <div class="ep-badges">
+              <span class="badge-item ${scriptDone ? 'done' : 'pending'}">
+                <i class="fa-solid ${scriptDone ? 'fa-circle-check' : 'fa-circle'}"></i> Guion
+              </span>
+              <span class="badge-item ${briefDone ? 'done' : 'pending'}">
+                <i class="fa-solid ${briefDone ? 'fa-circle-check' : 'fa-circle'}"></i> Brief
+              </span>
+              <span class="badge-item ${audioDone ? 'ready' : 'pending'} badge-audio">
+                <i class="fa-solid ${audioDone ? 'fa-play' : 'fa-clock'}"></i> ${audioDone ? 'Audio Listo' : 'Pendiente'}
+              </span>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      }
+
+      async openEpisodeDetail(slug) {
+        this.showLoading("Cargando detalles de episodio...");
+        try {
+          const res = await fetch(`${this.apiBase}/api/episodes/${slug}`);
+          if (!res.ok) throw new Error("Fallo al cargar metadatos");
+          this.activeEpisode = await res.json();
+          
+          // Render header elements
+          document.getElementById('detail-ep-num').innerText = `${this.activeEpisode.kind === 'trailer' ? 'TRÁILER' : 'EPISODIO'} ${this.activeEpisode.number}`;
+          document.getElementById('detail-title').innerText = this.activeEpisode.title;
+          document.getElementById('detail-angle').innerText = this.activeEpisode.angle || 'Sin ángulo específico';
+
+          // Load tabs markdown
+          await Promise.all([
+            this.loadEpisodeText(slug, 'script'),
+            this.loadEpisodeText(slug, 'brief'),
+            this.loadEpisodeText(slug, 'distribution')
+          ]);
+
+          this.renderAudioSidebar();
+          this.switchTab('script');
+          this.showView('detail');
+        } catch (e) {
+          console.error(e);
+          this.showToast("Error al cargar detalles de episodio", "error");
+        } finally {
+          this.hideLoading();
+        }
+      }
+
+      async loadEpisodeText(slug, type) {
+        const container = document.getElementById(`${type}-content`);
+        container.innerHTML = `<span style="color: var(--text-muted)"><i class="fa-solid fa-spinner fa-spin"></i> Cargando contenido...</span>`;
+        try {
+          const res = await fetch(`${this.apiBase}/api/episodes/${slug}/${type}`);
+          if (!res.ok) {
+            container.innerHTML = `<p style="color: var(--text-muted); font-style: italic;">No disponible. Debe ejecutar "Construir Todo" primero.</p>`;
+            return;
+          }
+          const text = await res.text();
+          container.dataset.raw = text; // Guardar texto plano para copiar al portapapeles
+          container.innerHTML = marked.parse(text);
+        } catch (e) {
+          container.innerHTML = `<span style="color: red">Error al descargar recurso.</span>`;
+        }
+      }
+
+      renderAudioSidebar() {
+        const container = document.getElementById('audio-panel-content');
+        container.innerHTML = '';
+
+        if (this.activeEpisode.audio_present) {
+          // Servimos el reproductor de audio
+          const filename = this.activeEpisode.audio_file.split('/').pop();
+          container.innerHTML = `
+            <div style="text-align: center; word-break: break-all; font-family: var(--font-mono); font-size: 13px; color: var(--grad-3);">
+              <i class="fa-solid fa-circle-check" style="font-size: 24px; margin-bottom: 8px; display:block;"></i>
+              ${filename}
+            </div>
+            <audio src="${this.apiBase}/audio/${filename}" controls></audio>
+            
+            <div style="border-top: 1px solid var(--border); padding-top: 16px; margin-top: 10px;">
+              <span style="font-size: 12px; color: var(--text-muted); display:block; margin-bottom: 8px; font-weight:500;">Reemplazar archivo de audio:</span>
+              <div class="file-upload-wrapper" style="padding: 16px 10px;">
+                <strong><i class="fa-solid fa-cloud-arrow-up"></i> Seleccionar nuevo</strong>
+                <p>Formatos: .mp3, .wav, .m4a, .ogg</p>
+                <input type="file" accept=".mp3,.wav,.m4a,.ogg" onchange="app.handleAudioUpload(event)">
+              </div>
+            </div>
+          `;
+        } else {
+          // Area de subida
+          container.innerHTML = `
+            <p style="font-size:13px; color: var(--text-muted); margin-bottom: 12px;">Sube el Audio Overview generado en NotebookLM para habilitar su reproducción y marcarlo listo.</p>
+            <div class="file-upload-wrapper">
+              <i class="fa-solid fa-microphone-lines"></i>
+              <strong>Subir Archivo de Audio</strong>
+              <p>Arrastra o busca aquí (.mp3, .wav, .m4a, .ogg)</p>
+              <input type="file" accept=".mp3,.wav,.m4a,.ogg" onchange="app.handleAudioUpload(event)">
+            </div>
+            <div style="font-size:11px; color: var(--text-muted); font-family: var(--font-mono); margin-top: 12px; background: rgba(0,0,0,0.2); padding: 8px; border-radius: 4px; border: 1px solid var(--border);">
+              Nombre esperado:<br>
+              <span style="color: var(--accent);">${this.activeEpisode.audio_expected[0]}</span>
+            </div>
+          `;
+        }
+      }
+
+      async handleAudioUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        this.showLoading("Subiendo y sincronizando audio...");
+        try {
+          const res = await fetch(`${this.apiBase}/api/episodes/${this.activeEpisode.slug}/audio`, {
+            method: 'POST',
+            body: formData
+          });
+
+          if (!res.ok) {
+            const errData = await res.json();
+            throw new Error(errData.detail || "Error en la subida");
+          }
+
+          const data = await res.json();
+          this.state = data.state;
+          this.updateKPIs(data.summary);
+          this.showToast("Audio subido y registrado con éxito");
+          
+          // Recargar episodio activo en la UI
+          await this.openEpisodeDetail(this.activeEpisode.slug);
+        } catch (e) {
+          console.error(e);
+          this.showToast(e.message, "error");
+        } finally {
+          this.hideLoading();
+        }
+      }
+
+      async buildAll() {
+        if (!confirm("¿Estás seguro de construir la serie? Esto regenerará todos los guiones, briefs y piezas de distribución. Se conservarán los archivos de audio detectados.")) {
+          return;
+        }
+        this.showLoading("Generando guiones y briefs de toda la serie (esto puede tardar unos segundos)...");
+        try {
+          const res = await fetch(`${this.apiBase}/api/build`, { method: 'POST' });
+          if (!res.ok) throw new Error("Fallo al construir la serie");
+          const data = await res.json();
+          this.state = data.state;
+          this.updateKPIs(data.summary);
+          this.showToast("¡Serie construida con éxito!");
+          await this.loadEpisodes();
+        } catch (e) {
+          console.error(e);
+          this.showToast("Fallo al construir la serie", "error");
+        } finally {
+          this.hideLoading();
+        }
+      }
+
+      async refreshAudio() {
+        this.showLoading("Escaneando archivos de audio entregados...");
+        try {
+          const res = await fetch(`${this.apiBase}/api/refresh`, { method: 'POST' });
+          if (!res.ok) throw new Error("Fallo al refrescar audios");
+          const data = await res.json();
+          this.state = data.state;
+          this.updateKPIs(data.summary);
+          this.showToast("Sincronización de audios completada");
+          await this.loadEpisodes();
+          
+          if (this.activeEpisode) {
+            // Si está visualizando un detalle, refrescarlo también
+            await this.openEpisodeDetail(this.activeEpisode.slug);
+          }
+        } catch (e) {
+          console.error(e);
+          this.showToast("Fallo al escanear audios", "error");
+        } finally {
+          this.hideLoading();
+        }
+      }
+
+      async loadConfig() {
+        try {
+          const res = await fetch(`${this.apiBase}/api/config`);
+          if (!res.ok) throw new Error("Fallo al obtener configuración");
+          this.rawConfig = await res.json();
+          
+          // Rellenar formulario
+          document.getElementById('cfg-project-name').value = this.rawConfig.project_name || '';
+          document.getElementById('cfg-plan-path').value = this.rawConfig.plan_path || '';
+          document.getElementById('cfg-wpm').value = this.rawConfig.episode?.words_per_minute || 150;
+          
+          document.getElementById('cfg-voice-a-name').value = this.rawConfig.hosts?.voice_a?.name || '';
+          document.getElementById('cfg-voice-a-role').value = this.rawConfig.hosts?.voice_a?.role || '';
+          document.getElementById('cfg-voice-b-name').value = this.rawConfig.hosts?.voice_b?.name || '';
+          document.getElementById('cfg-voice-b-role').value = this.rawConfig.hosts?.voice_b?.role || '';
+          
+          document.getElementById('cfg-accent').value = this.rawConfig.brand?.accent || '';
+          document.getElementById('cfg-grad1').value = this.rawConfig.brand?.grad_1 || '';
+          document.getElementById('cfg-grad2').value = this.rawConfig.brand?.grad_2 || '';
+          document.getElementById('cfg-grad3').value = this.rawConfig.brand?.grad_3 || '';
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      async saveConfig(event) {
+        event.preventDefault();
+        this.showLoading("Guardando configuración...");
+
+        // Modificar el objeto rawConfig de forma limpia
+        const newConfig = {
+          ...this.rawConfig,
+          project_name: document.getElementById('cfg-project-name').value,
+          plan_path: document.getElementById('cfg-plan-path').value,
+          episode: {
+            ...this.rawConfig.episode,
+            words_per_minute: parseInt(document.getElementById('cfg-wpm').value, 10)
+          },
+          hosts: {
+            voice_a: {
+              name: document.getElementById('cfg-voice-a-name').value,
+              role: document.getElementById('cfg-voice-a-role').value
+            },
+            voice_b: {
+              name: document.getElementById('cfg-voice-b-name').value,
+              role: document.getElementById('cfg-voice-b-role').value
+            }
+          },
+          brand: {
+            accent: document.getElementById('cfg-accent').value,
+            grad_1: document.getElementById('cfg-grad1').value,
+            grad_2: document.getElementById('cfg-grad2').value,
+            grad_3: document.getElementById('cfg-grad3').value
+          }
+        };
+
+        try {
+          const res = await fetch(`${this.apiBase}/api/config`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newConfig)
+          });
+
+          if (!res.ok) throw new Error("Fallo al guardar config en el servidor");
+          
+          this.rawConfig = newConfig;
+          this.showToast("Configuración guardada correctamente");
+          
+          // Recargar el estado por si cambió el plan_path u otras rutas
+          await this.loadState();
+        } catch (e) {
+          console.error(e);
+          this.showToast("Fallo al guardar configuración", "error");
+        } finally {
+          this.hideLoading();
+        }
+      }
+
+      switchTab(tabName) {
+        this.activeTab = tabName;
+        // Desactivar botones de tab
+        ['script', 'brief', 'distribution'].forEach(t => {
+          document.getElementById(`tab-btn-${t}`).classList.remove('active');
+          document.getElementById(`tab-pane-${t}`).classList.remove('active');
+        });
+        // Activar
+        document.getElementById(`tab-btn-${tabName}`).classList.add('active');
+        document.getElementById(`tab-pane-${tabName}`).classList.add('active');
+      }
+
+      showView(viewName) {
+        // Ocultar vistas
+        ['dashboard', 'detail', 'config'].forEach(v => {
+          document.getElementById(`view-${v}`).classList.remove('active');
+          document.getElementById(`nav-${v}`)?.classList.remove('active');
+        });
+        // Activar vista seleccionada
+        document.getElementById(`view-${viewName}`).classList.add('active');
+        // Activar nav btn
+        const navBtn = document.getElementById(`nav-${viewName}`);
+        if (navBtn) navBtn.classList.add('active');
+        
+        // Reset scroll position on main view change
+        window.scrollTo(0, 0);
+      }
+
+      copyTabContent(tabName) {
+        const text = document.getElementById(`${tabName}-content`).dataset.raw || '';
+        navigator.clipboard.writeText(text).then(() => {
+          this.showToast("Copiado al portapapeles");
+        }).catch(err => {
+          this.showToast("Fallo al copiar", "error");
+        });
+      }
+
+      copyCustomPrompt() {
+        if (!this.activeEpisode) return;
+        
+        const a = this.rawConfig.hosts.voice_a.name;
+        const b = this.rawConfig.hosts.voice_b.name;
+        const kind = this.activeEpisode.kind === 'trailer' ? 'tráiler' : 'episodio';
+        
+        const customPrompt = 
+          `Eres el guionista de un episodio de podcast de dos voces, en español neutro (tuteo), basado ÚNICAMENTE en las fuentes cargadas. No inventes datos que no estén en las fuentes.\n` +
+          `Tema del ${kind}: «${this.activeEpisode.title}». Ángulo: ${this.activeEpisode.angle || this.activeEpisode.title}.\n\n` +
+          `PAPELES (no las dejes de acuerdo en todo):\n` +
+          `- Voz A (${a}): defiende la solución del negocio; conoce el material a fondo.\n` +
+          `- Voz B (${b}): oyente escéptico que evalúa comprar; pregunta, duda, pide pruebas, saca la objeción real del comprador. La tensión A↔B es el motor; resuélvela al final, no antes.\n\n` +
+          `NIVEL: háblale a alguien que está evaluando comprar, no a un experto. Cero jerga; si un término es indispensable, explícalo en una frase.\n\n` +
+          `ESTRUCTURA EN 8 MOVIMIENTOS (sin saltarte ninguno):\n` +
+          `1) Gancho: el dolor o pregunta que el oyente ya trae.\n` +
+          `2) Problema: qué está en juego si no se resuelve.\n` +
+          `3) Experto: A explica el cómo desde el material.\n` +
+          `4) Ejemplo: un caso concreto de las fuentes.\n` +
+          `5) Objeción: B lanza la duda más fuerte del comprador (UNA sola, bien trabajada).\n` +
+          `6) Método: A responde con el paso a paso real.\n` +
+          `7) Recapitulación: ambas voces resumen qué quedó claro.\n` +
+          `8) Cierre: una sola invitación a dar el siguiente paso, sin sonar a anuncio.\n\n` +
+          `LÍMITES: ~5 minutos hablados; el cierre invita, no presiona.\n` +
+          `Idea de cierre: «${this.state.cta_href || 'cortexia777.com'}»`;
+        
+        navigator.clipboard.writeText(customPrompt).then(() => {
+          this.showToast("Prompt personalizado copiado");
+        }).catch(err => {
+          this.showToast("Fallo al copiar prompt", "error");
+        });
+      }
+    }
+
+    const app = new PodcastFactoryApp();
+    window.addEventListener('DOMContentLoaded', () => app.init());
+  </script>
+</body>
+</html>

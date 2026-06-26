@@ -1,0 +1,1519 @@
+/* ─── engine/base.css ─── */
+/* 777 Explainer Engine — base.css
+ * Tipografía + reset + utilities compartidas por todos los componentes.
+ * Cargado SIEMPRE en el <style> del index.html, antes de la palette y del project theme.
+ */
+
+:root {
+  /* Paleta base — override en theme del proyecto */
+  --bg: #0d0d0f;
+  --card-bg: #13131a;
+  --card-border: #1e1e28;
+  --card-hover: #1a1a24;
+  --text: #ffffff;
+  --text-muted: #6b6b80;
+  --text-dim: #3a3a4a;
+  --nav-bg: #13131a;
+  --nav-border: #1e1e28;
+
+  /* Accent default (override en theme del proyecto) */
+  --flame: #f58a2e;
+  --flame-soft: rgba(245,138,46,0.15);
+
+  /* Tipografía */
+  --font-display: 'Syne', system-ui, sans-serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, monospace;
+
+  /* Spacing & radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-pill: 100px;
+
+  /* Motion */
+  --motion-fast: 200ms;
+  --motion-base: 320ms;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ─── V-DIVIDER (separador corto vertical entre secciones, glow que cae UNA vez en viewport) ─── */
+.v-divider {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0 40px;
+  position: relative;
+}
+.v-divider-line {
+  position: relative;
+  width: 3px;
+  height: 200px;
+  background: linear-gradient(to bottom,
+    rgba(180,180,210,0.10) 0%,
+    rgba(180,180,210,0.32) 50%,
+    rgba(180,180,210,0.10) 100%
+  );
+  border-radius: 3px;
+  overflow: visible; /* glow puede salir por encima/abajo de la línea */
+}
+.v-divider-glow {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  background: radial-gradient(circle at center,
+    #ffffff 0%,
+    var(--flame, #f58a2e) 40%,
+    rgba(245,138,46,0.5) 70%,
+    transparent 100%
+  );
+  border-radius: 50%;
+  box-shadow:
+    0 0 8px var(--flame, #f58a2e),
+    0 0 18px rgba(245,138,46,0.4);
+  opacity: 0;
+  pointer-events: none;
+}
+.v-divider.animate .v-divider-glow {
+  animation: divider-fall 1.6s ease-in-out forwards;
+}
+@keyframes divider-fall {
+  0%   { top: -10px; opacity: 0; }
+  10%  { opacity: 1; }
+  88%  { opacity: 1; }
+  100% { top: 198px; opacity: 0; }
+}
+
+/* ─── WORD HIGHLIGHTS (palabras pop dentro de títulos) ─── */
+.pop {
+  background: linear-gradient(135deg, var(--hero-grad-1, #7c5cbf) 0%, var(--hero-grad-2, #4a9eff) 50%, var(--hero-grad-3, #00e87a) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.pop-italic { font-style: italic; }
+.hl-flame  { color: var(--flame); }
+.hl-coral  { color: #ff6b4a; }
+.hl-green  { color: #00e87a; }
+.hl-teal   { color: #00d4c8; }
+.hl-gold   { color: #e8b84b; }
+
+/* ─── SECTION PILL (eyebrow tag con dot + numero + label) ─── */
+.section-pill-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 0 12px;
+}
+.section-pill {
+  background: #111118;
+  border: 1px solid #222230;
+  border-radius: 100px;
+  padding: 6px 16px;
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+}
+.section-pill .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #888;
+  box-shadow: 0 0 6px currentColor;
+}
+
+/* ─── NAV TOP ─── */
+.nav-top {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 12px 28px;
+  background: rgba(13,13,15,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--nav-border);
+  flex-wrap: wrap;
+}
+
+.nav-label {
+  font-size: 10px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-right: 6px;
+  white-space: nowrap;
+}
+
+.nav-pill {
+  border-radius: var(--radius-pill);
+  padding: 5px 13px;
+  font-size: 11px;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: all var(--motion-fast);
+  white-space: nowrap;
+  background: transparent;
+  border: 1px solid var(--nav-border);
+  display: inline-block;
+}
+
+.nav-pill:hover { color: var(--text); border-color: #333340; }
+.nav-pill.active { color: #fff; }
+
+/* ─── HERO ─── */
+.hero {
+  text-align: center;
+  padding: 56px 32px 36px;
+  position: relative;
+}
+
+.hero-eyebrow {
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.hero-super {
+  font-family: var(--font-display);
+  font-size: clamp(16px, 2.5vw, 20px);
+  font-weight: 600;
+  color: #ccc;
+  margin-bottom: 6px;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 10vw, 96px);
+  font-weight: 800;
+  line-height: 0.85;
+  letter-spacing: -4px;
+  margin-bottom: 18px;
+  background: linear-gradient(135deg, var(--hero-grad-1, #7c5cbf) 0%, var(--hero-grad-2, #4a9eff) 50%, var(--hero-grad-3, #00e87a) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-tagline {
+  font-size: 15px;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-bottom: 28px;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.pills-row {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.stat-pill {
+  background: #14141c;
+  border: 1px solid var(--nav-border);
+  border-radius: var(--radius-pill);
+  padding: 6px 16px;
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.stat-pill b { color: var(--text); font-weight: 600; }
+
+/* ─── SECTION WRAPPER ─── */
+.section-wrap {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 48px 28px 0;
+}
+
+.section-divider {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0 48px;
+}
+
+.section-divider-line {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, var(--nav-border), transparent);
+}
+
+/* ─── SECTION HEADER (estilo pill + big title centrado, patrón template_02) ─── */
+.section-header {
+  text-align: center;
+  padding: 0 24px 36px;
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.section-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5.5vw, 56px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -2px;
+  margin-bottom: 14px;
+  color: var(--text);
+}
+
+.section-subtitle {
+  font-size: 15px;
+  color: var(--text-muted);
+  font-style: italic;
+  line-height: 1.6;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* ─── CARDS GRID ─── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 0;
+}
+
+@media (max-width: 760px) {
+  .cards-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .cards-grid { grid-template-columns: 1fr; }
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-top: 2px solid var(--card-border); /* override per CARD via .cards-grid .card:nth-child(N) */
+  border-radius: 12px;
+  padding: 24px 22px;
+  transition: background var(--motion-fast), transform var(--motion-fast);
+  position: relative;
+}
+
+.card:hover { background: var(--card-hover); transform: translateY(-2px); }
+
+/* ─── CARD COLOR ROTATION (6 colores cíclicos por card del grid) ─── */
+/* Cada card del grid recibe un color de accent distinto, independiente del theme de la sección.
+   Aplica a: border-top, card-num, card-icon (bg + foreground). */
+
+.cards-grid .card:nth-child(6n+1) { border-top-color: #4a9eff; }
+.cards-grid .card:nth-child(6n+1) .card-num { color: #4a9eff; }
+.cards-grid .card:nth-child(6n+1) .card-icon { background: rgba(74,158,255,0.15); color: #4a9eff; }
+
+.cards-grid .card:nth-child(6n+2) { border-top-color: #c89600; }
+.cards-grid .card:nth-child(6n+2) .card-num { color: #c89600; }
+.cards-grid .card:nth-child(6n+2) .card-icon { background: rgba(200,150,0,0.15); color: #ffc63a; }
+
+.cards-grid .card:nth-child(6n+3) { border-top-color: #00c8c8; }
+.cards-grid .card:nth-child(6n+3) .card-num { color: #00c8c8; }
+.cards-grid .card:nth-child(6n+3) .card-icon { background: rgba(0,180,180,0.15); color: #00c8c8; }
+
+.cards-grid .card:nth-child(6n+4) { border-top-color: #00c860; }
+.cards-grid .card:nth-child(6n+4) .card-num { color: #00c860; }
+.cards-grid .card:nth-child(6n+4) .card-icon { background: rgba(0,200,100,0.15); color: #00c860; }
+
+.cards-grid .card:nth-child(6n+5) { border-top-color: #e040b0; }
+.cards-grid .card:nth-child(6n+5) .card-num { color: #e040b0; }
+.cards-grid .card:nth-child(6n+5) .card-icon { background: rgba(220,60,170,0.15); color: #e040b0; }
+
+.cards-grid .card:nth-child(6n) { border-top-color: #f58a2e; }
+.cards-grid .card:nth-child(6n) .card-num { color: #f58a2e; }
+.cards-grid .card:nth-child(6n) .card-icon { background: rgba(245,138,46,0.15); color: #f58a2e; }
+
+.card-num {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  color: #aaaadd;
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  font-family: var(--font-mono);
+  opacity: 0.7;
+}
+
+.card h3 {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 700;
+  color: #f0f0f8;
+  margin-bottom: 12px;
+  line-height: 1.25;
+  padding-right: 28px;
+}
+
+.card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.06);
+  margin-bottom: 14px;
+  font-size: 16px;
+}
+
+.card p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin-bottom: 8px;
+}
+.card p:last-child { margin-bottom: 0; }
+
+.card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.card ul li {
+  font-size: 12px;
+  color: var(--text-muted);
+  padding-left: 12px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.card ul li::before {
+  content: '·';
+  position: absolute;
+  left: 1px;
+  color: var(--text-dim);
+  font-size: 16px;
+  line-height: 1.15;
+}
+
+.card .tag {
+  display: inline-block;
+  background: #1e1e2e;
+  border: 1px solid #2a2a3e;
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: #7aff9a;
+}
+
+/* ─── NARRATIVE BODY (section-narrative) ─── */
+.narrative-body {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-top: 2px solid var(--card-border); /* themed */
+  border-radius: 12px;
+  padding: 36px 40px;
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.narrative-body p {
+  font-size: 15.5px;
+  color: #d0d0e0;
+  line-height: 1.72;
+  margin-bottom: 16px;
+}
+.narrative-body p:last-child { margin-bottom: 0; }
+.narrative-body strong { color: var(--text); font-weight: 600; }
+.narrative-body em { color: #c0c0d8; }
+
+/* ─── COMPARE SIDE BY SIDE ─── */
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+@media (max-width: 720px) { .compare-grid { grid-template-columns: 1fr; } }
+
+.compare-side {
+  background: var(--card-bg);
+  padding: 28px 26px;
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+}
+.compare-side.fail { border-top: 2px solid #cc3333; }
+.compare-side.pass { border-top: 2px solid #00c860; }
+.compare-side .compare-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 4px;
+  margin-bottom: 14px;
+}
+.compare-side.fail .compare-tag { background: rgba(220,60,60,0.15); color: #ff8080; border: 1px solid rgba(220,60,60,0.3); }
+.compare-side.pass .compare-tag { background: rgba(0,200,100,0.15); color: #50e090; border: 1px solid rgba(0,200,100,0.3); }
+.compare-side h3 {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 700;
+  color: #e8e8f0;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+.compare-side p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-bottom: 10px;
+}
+.compare-side p:last-child { margin-bottom: 0; }
+
+/* ─── QUOTE EDITORIAL ─── */
+.quote-block {
+  text-align: center;
+  padding: 56px 32px;
+  border-top: 1px solid var(--card-border);
+  border-bottom: 1px solid var(--card-border);
+  margin: 32px 0;
+}
+.quote-text {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 3.4vw, 36px);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--text);
+  margin-bottom: 16px;
+  max-width: 820px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.quote-text em { color: var(--flame); font-style: italic; }
+.quote-attr {
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* ─── STAT ROW ─── */
+.stat-row {
+  display: flex;
+  gap: 2px;
+  background: #0a0a0e;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.stat-card {
+  flex: 1;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 28px 16px;
+  text-align: center;
+}
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--flame);
+  margin-bottom: 6px;
+  line-height: 1;
+}
+.stat-lbl {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+/* ─── POINTS LIST ─── */
+.points-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.point-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 18px 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+}
+.point-num {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--flame);
+  min-width: 24px;
+}
+.point-text { font-size: 14px; color: #cccccc; line-height: 1.65; }
+.point-text strong { color: var(--text); font-weight: 600; }
+
+/* ─── GLOSSARY ─── */
+.glossary {
+  max-width: 980px;
+  margin: 80px auto 0;
+  padding: 32px 28px 80px;
+  border-top: 1px solid var(--card-border);
+}
+.glossary h2 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  letter-spacing: 0.02em;
+}
+.glossary .glossary-sub {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-bottom: 28px;
+  font-style: italic;
+}
+.glossary dl {
+  display: grid;
+  grid-template-columns: minmax(140px, 200px) 1fr;
+  gap: 14px 28px;
+}
+@media (max-width: 720px) { .glossary dl { grid-template-columns: 1fr; gap: 4px 0; } }
+.glossary dt {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  padding-top: 4px;
+}
+.glossary dt .en {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+  font-weight: 400;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+.glossary dd {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.65;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--card-border);
+}
+@media (max-width: 720px) { .glossary dd { padding-bottom: 18px; margin-bottom: 12px; } }
+
+/* ─── CTA CLOSING ─── */
+.cta-closing {
+  max-width: 820px;
+  margin: 64px auto 0;
+  padding: 0 28px;
+}
+.cta-block {
+  background: linear-gradient(135deg, var(--flame) 0%, #c84020 100%);
+  border-radius: var(--radius-lg);
+  padding: 56px 40px;
+  text-align: center;
+}
+.cta-block h2 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 16px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.cta-block p {
+  font-size: 16px;
+  color: rgba(255,255,255,0.92);
+  line-height: 1.6;
+  margin-bottom: 28px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cta-button {
+  display: inline-block;
+  background: #fff;
+  color: #1a0a00;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  padding: 14px 32px;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.01em;
+  transition: all var(--motion-fast);
+  cursor: pointer;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+}
+.cta-button:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(0,0,0,0.35); }
+
+/* ─── PROSE WITHIN BODY (paragraph-narrative + cards bullets) ─── */
+.prose strong { color: var(--text); font-weight: 600; }
+.prose em { color: #c0c0d8; }
+
+/* ─── PRESENTER NOTES — trigger sutil + modal ─── */
+.presenter-note-trigger {
+  display: flex;
+  justify-content: center;
+  margin: 32px auto 0;
+  max-width: 980px;
+}
+.presenter-note-link {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border: 1px solid var(--card-border);
+  padding: 7px 16px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  background: transparent;
+  transition: all var(--motion-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.presenter-note-link::before {
+  content: 'i';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--card-border);
+  color: var(--text-dim);
+  font-style: italic;
+  font-family: var(--font-display);
+  font-size: 10px;
+}
+.presenter-note-link:hover {
+  color: var(--text-muted);
+  border-color: var(--text-muted);
+}
+.presenter-note-link:hover::before {
+  background: var(--text-muted);
+  color: var(--card-bg);
+}
+
+/* Modal overlay */
+.presenter-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.presenter-modal.open { display: flex; }
+.presenter-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.presenter-modal-box {
+  position: relative;
+  width: min(800px, 80vw);
+  max-height: 80vh;
+  background: #ffffff;
+  border: 1px solid #d8d8de;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.55);
+  animation: modal-in 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.presenter-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: #f3f3f5;
+  color: #555562;
+  font-size: 22px;
+  line-height: 1;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 2;
+  transition: all var(--motion-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.presenter-modal-close:hover {
+  background: #e6e6ea;
+  color: #1a1a24;
+}
+.presenter-modal-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: #8a8a96;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 24px 40px 0;
+}
+.presenter-modal-content {
+  padding: 8px 40px 36px;
+  overflow-y: auto;
+  font-family: var(--font-body);
+  color: #2a2a32;
+}
+.presenter-modal-content h2,
+.presenter-modal-content h3 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: #15151b;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+.presenter-modal-content h4 {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: #15151b;
+  margin-top: 22px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+.presenter-modal-content p {
+  margin-bottom: 14px;
+  line-height: 1.7;
+  color: #2a2a32;
+  font-size: 14.5px;
+}
+.presenter-modal-content ul {
+  margin-bottom: 16px;
+  padding-left: 4px;
+  list-style: none;
+}
+.presenter-modal-content ul li {
+  margin-bottom: 8px;
+  color: #3a3a44;
+  line-height: 1.65;
+  font-size: 14px;
+  padding-left: 18px;
+  position: relative;
+}
+.presenter-modal-content ul li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: #b8741a;
+  opacity: 0.85;
+}
+.presenter-modal-content strong {
+  color: #15151b;
+  font-weight: 600;
+}
+.presenter-modal-content em { color: #555562; }
+.presenter-modal-content code {
+  background: #f3f3f5;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #b8741a;
+  border: 1px solid #e6e6ea;
+}
+
+/* ─── DIAGRAM MERMAID (diagram-mermaid) ─── */
+/* Container con fondo de puntos sutil (whiteboard moderno) + glow en nodos
+   + flechas animadas + tipografía display. La inicialización con themeVariables
+   en render.py sincroniza colores con los tokens del proyecto. */
+.diagram-wrap {
+  position: relative;
+  background:
+    radial-gradient(circle at 1px 1px, rgba(255,255,255,0.04) 1px, transparent 0) 0 0 / 22px 22px,
+    linear-gradient(180deg, var(--card-bg) 0%, color-mix(in srgb, var(--card-bg) 80%, var(--bg)) 100%);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 48px 32px 40px;
+  max-width: 1040px;
+  margin: 0 auto;
+  overflow: visible;
+  box-shadow:
+    0 2px 24px rgba(0,0,0,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.03);
+}
+/* Overflow visible para que el glow del hover no se clipe.
+   El SVG ya tiene max-width 100% así que se auto-ajusta al ancho del wrap. */
+.diagram-wrap .mermaid {
+  overflow: visible;
+}
+.diagram-wrap .mermaid svg {
+  overflow: visible !important;
+}
+.diagram-wrap::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 16%; right: 16%;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--flame, #f58a2e) 50%,
+    transparent 100%);
+  opacity: 0.4;
+}
+
+.diagram-wrap .mermaid {
+  background: transparent;
+  text-align: center;
+  font-family: var(--font-display, 'Quicksand'), sans-serif;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+  color: transparent;
+}
+.diagram-wrap .mermaid[data-processed="true"] {
+  color: inherit;
+}
+.diagram-wrap .mermaid svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 4px 24px rgba(0,0,0,0.35));
+}
+
+/* Rotación neon multi-color — las clases .node-color-N las asigna el JS post-render
+   (ver render.py mermaid_block). Esto garantiza que mismo-actor → mismo-color
+   en sequence diagrams (el JS taggea por identidad, no por posición DOM). */
+.diagram-wrap .mermaid svg .node-color-0 { --node-color: var(--diagram-accent-1, var(--flame, #f58a2e)); }
+.diagram-wrap .mermaid svg .node-color-1 { --node-color: var(--diagram-accent-2, var(--flame, #f58a2e)); }
+.diagram-wrap .mermaid svg .node-color-2 { --node-color: var(--diagram-accent-3, var(--flame, #f58a2e)); }
+.diagram-wrap .mermaid svg .node-color-3 { --node-color: var(--diagram-accent-4, var(--flame, #f58a2e)); }
+.diagram-wrap .mermaid svg .node-color-4 { --node-color: var(--diagram-accent-5, var(--flame, #f58a2e)); }
+
+/* Nodos: rectángulos / rombos / círculos — borde y glow del color rotado por nodo */
+.diagram-wrap .mermaid svg .node rect,
+.diagram-wrap .mermaid svg .node polygon,
+.diagram-wrap .mermaid svg .node circle,
+.diagram-wrap .mermaid svg .node ellipse,
+.diagram-wrap .mermaid svg .node path {
+  rx: 10;
+  ry: 10;
+  stroke: var(--node-color, var(--flame, #f58a2e)) !important;
+  stroke-width: 2px !important;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4))
+          drop-shadow(0 0 14px color-mix(in srgb, var(--node-color, var(--flame, #f58a2e)) 35%, transparent));
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+.diagram-wrap .mermaid svg .node:hover rect,
+.diagram-wrap .mermaid svg .node:hover polygon,
+.diagram-wrap .mermaid svg .node:hover circle,
+.diagram-wrap .mermaid svg .node:hover ellipse,
+.diagram-wrap .mermaid svg .node:hover path {
+  filter: drop-shadow(0 4px 14px rgba(0,0,0,0.55))
+          drop-shadow(0 0 22px color-mix(in srgb, var(--node-color, var(--flame, #f58a2e)) 70%, transparent));
+}
+
+/* Texto dentro de nodos */
+.diagram-wrap .mermaid svg .node text,
+.diagram-wrap .mermaid svg .nodeLabel,
+.diagram-wrap .mermaid svg foreignObject div {
+  font-family: var(--font-display, 'Quicksand'), sans-serif !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.2px;
+  font-size: 14px !important;
+}
+
+/* Flechas / edges */
+.diagram-wrap .mermaid svg .flowchart-link,
+.diagram-wrap .mermaid svg .edge-thickness-normal,
+.diagram-wrap .mermaid svg path.path,
+.diagram-wrap .mermaid svg .messageLine0,
+.diagram-wrap .mermaid svg .messageLine1 {
+  stroke-width: 2px !important;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--flame, #f58a2e) 30%, transparent));
+}
+.diagram-wrap .mermaid svg .flowchart-link {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: diagram-draw 1.6s ease-out forwards;
+}
+@keyframes diagram-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Etiquetas de edges — solo aplicar fondo si tienen contenido real.
+   Mermaid genera .edgeLabel también para flechas SIN texto, y un rect con bg
+   pinta una cajita fantasma flotando. Targeting al div con texto resuelve. */
+.diagram-wrap .mermaid svg .edgeLabel {
+  font-family: var(--font-display, 'Quicksand'), sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 12.5px !important;
+  background: transparent !important;
+}
+.diagram-wrap .mermaid svg .edgeLabel foreignObject div:not(:empty):not(:has(span:empty)) {
+  background: var(--bg, #0d0d0f);
+  padding: 2px 8px;
+  border-radius: 6px;
+  display: inline-block;
+}
+/* Quitar el rect de fondo automático que Mermaid mete en edgeLabels vacíos */
+.diagram-wrap .mermaid svg .edgeLabel > rect,
+.diagram-wrap .mermaid svg .edgeLabel .labelBkg {
+  fill: transparent !important;
+  stroke: none !important;
+}
+
+/* ─── SEQUENCE DIAGRAM ─── */
+/* Actores: cada identidad (Usuario, App, Servidor) recibe SU color consistente
+   tanto en su rect-top como en su rect-bottom. El JS post-render asigna actor-color-N. */
+.diagram-wrap .mermaid svg .actor-color-0 { --actor-color: var(--diagram-accent-1, var(--flame, #f58a2e)); }
+.diagram-wrap .mermaid svg .actor-color-1 { --actor-color: var(--diagram-accent-2, var(--flame, #f58a2e)); }
+.diagram-wrap .mermaid svg .actor-color-2 { --actor-color: var(--diagram-accent-3, var(--flame, #f58a2e)); }
+.diagram-wrap .mermaid svg .actor-color-3 { --actor-color: var(--diagram-accent-4, var(--flame, #f58a2e)); }
+.diagram-wrap .mermaid svg .actor-color-4 { --actor-color: var(--diagram-accent-5, var(--flame, #f58a2e)); }
+
+/* Mensajes: cada mensaje rota color por orden — guía visual del progreso temporal */
+.diagram-wrap .mermaid svg .msg-color-0 { stroke: var(--diagram-accent-1, var(--flame, #f58a2e)) !important; }
+.diagram-wrap .mermaid svg .msg-color-1 { stroke: var(--diagram-accent-2, var(--flame, #f58a2e)) !important; }
+.diagram-wrap .mermaid svg .msg-color-2 { stroke: var(--diagram-accent-3, var(--flame, #f58a2e)) !important; }
+.diagram-wrap .mermaid svg .msg-color-3 { stroke: var(--diagram-accent-4, var(--flame, #f58a2e)) !important; }
+.diagram-wrap .mermaid svg .msg-color-4 { stroke: var(--diagram-accent-5, var(--flame, #f58a2e)) !important; }
+/* Glow del mensaje correspondiente */
+.diagram-wrap .mermaid svg .msg-color-0 { filter: drop-shadow(0 0 6px color-mix(in srgb, var(--diagram-accent-1, var(--flame, #f58a2e)) 50%, transparent)); }
+.diagram-wrap .mermaid svg .msg-color-1 { filter: drop-shadow(0 0 6px color-mix(in srgb, var(--diagram-accent-2, var(--flame, #f58a2e)) 50%, transparent)); }
+.diagram-wrap .mermaid svg .msg-color-2 { filter: drop-shadow(0 0 6px color-mix(in srgb, var(--diagram-accent-3, var(--flame, #f58a2e)) 50%, transparent)); }
+.diagram-wrap .mermaid svg .msg-color-3 { filter: drop-shadow(0 0 6px color-mix(in srgb, var(--diagram-accent-4, var(--flame, #f58a2e)) 50%, transparent)); }
+.diagram-wrap .mermaid svg .msg-color-4 { filter: drop-shadow(0 0 6px color-mix(in srgb, var(--diagram-accent-5, var(--flame, #f58a2e)) 50%, transparent)); }
+
+/* Timeline / mindmap: secciones por orden */
+.diagram-wrap .mermaid svg .tl-color-0 { --tl-color: var(--diagram-accent-1, var(--flame, #f58a2e)); }
+.diagram-wrap .mermaid svg .tl-color-1 { --tl-color: var(--diagram-accent-2, var(--flame, #f58a2e)); }
+.diagram-wrap .mermaid svg .tl-color-2 { --tl-color: var(--diagram-accent-3, var(--flame, #f58a2e)); }
+.diagram-wrap .mermaid svg .tl-color-3 { --tl-color: var(--diagram-accent-4, var(--flame, #f58a2e)); }
+.diagram-wrap .mermaid svg .tl-color-4 { --tl-color: var(--diagram-accent-5, var(--flame, #f58a2e)); }
+
+.diagram-wrap .mermaid svg .actor {
+  stroke: var(--actor-color, var(--flame, #f58a2e)) !important;
+  stroke-width: 2px !important;
+  rx: 8;
+  ry: 8;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4))
+          drop-shadow(0 0 14px color-mix(in srgb, var(--actor-color, var(--flame, #f58a2e)) 35%, transparent));
+  transition: filter 0.25s ease;
+}
+.diagram-wrap .mermaid svg .actor:hover {
+  filter: drop-shadow(0 4px 14px rgba(0,0,0,0.5))
+          drop-shadow(0 0 22px color-mix(in srgb, var(--actor-color, var(--flame, #f58a2e)) 70%, transparent));
+}
+.diagram-wrap .mermaid svg text.actor > tspan,
+.diagram-wrap .mermaid svg .actor-box text,
+.diagram-wrap .mermaid svg .actor + text tspan {
+  font-family: var(--font-display, 'Quicksand'), sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+}
+/* Lifeline vertical de cada actor — dashed muted */
+.diagram-wrap .mermaid svg line.actor-line {
+  stroke: color-mix(in srgb, var(--text, #dcc8f0) 22%, transparent) !important;
+  stroke-dasharray: 4 4;
+  stroke-width: 1.2px !important;
+}
+/* Mensajes (flechas horizontales) — el color por orden lo asigna .msg-color-N;
+   aquí solo definimos grosor + cap + el patrón dashed para mensajes de respuesta */
+.diagram-wrap .mermaid svg .messageLine0,
+.diagram-wrap .mermaid svg .messageLine1 {
+  stroke-width: 2px !important;
+  stroke-linecap: round;
+}
+.diagram-wrap .mermaid svg .messageLine1 {
+  stroke-dasharray: 6 4;
+}
+/* Texto de los mensajes con pill bg para legibilidad */
+.diagram-wrap .mermaid svg .messageText {
+  font-family: var(--font-display, 'Quicksand'), sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 12.5px !important;
+  fill: var(--text, #dcc8f0) !important;
+}
+/* Activation boxes (cuando un actor procesa) */
+.diagram-wrap .mermaid svg rect.activation0,
+.diagram-wrap .mermaid svg rect.activation1,
+.diagram-wrap .mermaid svg rect.activation2 {
+  fill: color-mix(in srgb, var(--flame, #f58a2e) 20%, transparent) !important;
+  stroke: var(--flame, #f58a2e) !important;
+  stroke-width: 1px !important;
+}
+
+/* ─── TIMELINE ─── */
+/* Headers de período (Q1, Q2, ... o Ene, Feb, ...) = color FUERTE.
+   Eventos hijos (Discovery, Brief, Build, ...) = mismo color, variante SUAVE.
+   El JS post-render asigna .tl-header al header y .tl-child a los eventos. */
+
+/* Headers: stroke saturado + fill tinted 25% + glow fuerte */
+.diagram-wrap .mermaid svg .tl-header rect,
+.diagram-wrap .mermaid svg .tl-header > rect,
+.diagram-wrap .mermaid svg .tl-header circle,
+.diagram-wrap .mermaid svg .tl-header polygon,
+.diagram-wrap .mermaid svg .tl-header path {
+  fill: color-mix(in srgb, var(--tl-color, var(--flame, #f58a2e)) 28%, var(--card-bg, #13131a)) !important;
+  stroke: var(--tl-color, var(--flame, #f58a2e)) !important;
+  stroke-width: 2.2px !important;
+  filter: drop-shadow(0 0 14px color-mix(in srgb, var(--tl-color, var(--flame, #f58a2e)) 55%, transparent));
+}
+.diagram-wrap .mermaid svg .tl-header text,
+.diagram-wrap .mermaid svg .tl-header tspan,
+.diagram-wrap .mermaid svg .tl-header foreignObject div {
+  fill: var(--tl-color, var(--flame, #f58a2e)) !important;
+  color: var(--tl-color, var(--flame, #f58a2e)) !important;
+  font-family: var(--font-display, 'Quicksand'), sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+  letter-spacing: 0.5px;
+}
+
+/* Eventos hijos: stroke al 55% de saturación + fill apenas tinted + glow sutil */
+.diagram-wrap .mermaid svg .tl-child rect,
+.diagram-wrap .mermaid svg .tl-child > rect,
+.diagram-wrap .mermaid svg .tl-child circle,
+.diagram-wrap .mermaid svg .tl-child polygon,
+.diagram-wrap .mermaid svg .tl-child path {
+  fill: color-mix(in srgb, var(--tl-color, var(--flame, #f58a2e)) 10%, var(--card-bg, #13131a)) !important;
+  stroke: color-mix(in srgb, var(--tl-color, var(--flame, #f58a2e)) 55%, transparent) !important;
+  stroke-width: 1.4px !important;
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--tl-color, var(--flame, #f58a2e)) 25%, transparent));
+}
+.diagram-wrap .mermaid svg .tl-child text,
+.diagram-wrap .mermaid svg .tl-child tspan,
+.diagram-wrap .mermaid svg .tl-child foreignObject div {
+  fill: var(--text, #dcc8f0) !important;
+  color: var(--text, #dcc8f0) !important;
+  font-family: var(--font-display, 'Quicksand'), sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+}
+
+/* Cluster / subgraph */
+.diagram-wrap .mermaid svg .cluster rect {
+  stroke-dasharray: 6 4;
+  opacity: 0.85;
+  rx: 14;
+  ry: 14;
+}
+.diagram-wrap .mermaid svg .cluster text {
+  font-family: var(--font-display, 'Quicksand'), sans-serif !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 11px !important;
+}
+
+.diagram-caption {
+  margin-top: 22px;
+  font-size: 13px;
+  font-style: italic;
+  color: var(--text-muted, #a8a8c0);
+  text-align: center;
+  font-weight: 300;
+  letter-spacing: 0.2px;
+}
+
+/* ─── HERO de imagen única — per .claude/rules/777-html-image-insertion.md §3 ─── */
+/* Cuando una sección visual-asset tiene UNA sola imagen, NUNCA va como thumbnail.
+   Ocupa el ancho nativo de la columna principal (~980px max). */
+.image-hero {
+  margin: 28px auto;
+  max-width: 980px;
+  padding: 0 24px;
+}
+.image-hero .image-frame {
+  padding: 18px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  box-shadow:
+    0 4px 18px rgba(0,0,0,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.03);
+  cursor: zoom-in;
+  position: relative;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.image-hero .image-frame:hover {
+  border-color: color-mix(in srgb, var(--flame, #f58a2e) 45%, var(--card-border));
+  box-shadow:
+    0 8px 26px rgba(0,0,0,0.45),
+    0 0 24px color-mix(in srgb, var(--flame, #f58a2e) 25%, transparent);
+}
+.image-hero .image-frame::after {
+  content: "⌖ ampliar";
+  position: absolute;
+  bottom: 12px; right: 28px;
+  font-size: 11px;
+  color: var(--text, #dcc8f0);
+  background: rgba(13,8,32,0.78);
+  padding: 5px 11px;
+  border-radius: 999px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.image-hero .image-frame:hover::after { opacity: 1; }
+.image-hero .image-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--card-border, #3d2762) 70%, transparent);
+}
+.image-hero figcaption {
+  text-align: center;
+  margin-top: 16px;
+  font-family: var(--font-body, 'Inter'), sans-serif;
+}
+.image-hero figcaption strong {
+  display: block;
+  color: var(--flame, #f58a2e);
+  font-weight: 600;
+  font-size: 15.5px;
+  letter-spacing: 0.3px;
+  margin-bottom: 4px;
+}
+.image-hero figcaption span {
+  display: block;
+  color: var(--text-muted, #a89bc4);
+  font-size: 12.5px;
+  font-style: italic;
+  font-weight: 300;
+}
+
+
+/* ─── engine/section-palette.css ─── */
+/* 777 Explainer Engine — section-palette.css
+ * 10 temas de color por sección (s1..s10).
+ * Cada theme aplica a: section-pill dot (color del theme), narrative-body border-top, nav-pill activo.
+ *
+ * Las CARDS NO heredan el theme de la sección. Las cards rotan colores por sí mismas
+ * via `.cards-grid .card:nth-child(6n+N)` en base.css (6 colores cíclicos).
+ */
+
+/* 01 — Azul/Púrpura */
+.s1 .section-pill .dot { background: #4a9eff; box-shadow: 0 0 6px #4a9eff; }
+.s1 .narrative-body { border-top-color: #4a9eff; }
+.nav-pill[data-section="s1"].active { background: #1a1a3e; border-color: #4a4a9f; color: #fff; }
+
+/* 02 — Dorado */
+.s2 .section-pill .dot { background: #c89600; box-shadow: 0 0 6px #c89600; }
+.s2 .narrative-body { border-top-color: #c89600; }
+.nav-pill[data-section="s2"].active { background: #2a1f00; border-color: #8a6000; color: #fff; }
+
+/* 03 — Azul brillante */
+.s3 .section-pill .dot { background: #0088ff; box-shadow: 0 0 6px #0088ff; }
+.s3 .narrative-body { border-top-color: #0088ff; }
+.nav-pill[data-section="s3"].active { background: #001a3a; border-color: #004a9f; color: #fff; }
+
+/* 04 — Rojo/Coral */
+.s4 .section-pill .dot { background: #cc3333; box-shadow: 0 0 6px #cc3333; }
+.s4 .narrative-body { border-top-color: #cc3333; }
+.nav-pill[data-section="s4"].active { background: #2a0a0a; border-color: #8a2020; color: #fff; }
+
+/* 05 — Naranja */
+.s5 .section-pill .dot { background: #c87820; box-shadow: 0 0 6px #c87820; }
+.s5 .narrative-body { border-top-color: #c87820; }
+.nav-pill[data-section="s5"].active { background: #1e1200; border-color: #7a4a00; color: #fff; }
+
+/* 06 — Verde */
+.s6 .section-pill .dot { background: #00c860; box-shadow: 0 0 6px #00c860; }
+.s6 .narrative-body { border-top-color: #00c860; }
+.nav-pill[data-section="s6"].active { background: #001a0e; border-color: #005a30; color: #fff; }
+
+/* 07 — Púrpura/Magenta */
+.s7 .section-pill .dot { background: #b040e0; box-shadow: 0 0 6px #b040e0; }
+.s7 .narrative-body { border-top-color: #b040e0; }
+.nav-pill[data-section="s7"].active { background: #1a0028; border-color: #6a009a; color: #fff; }
+
+/* 08 — Cyan/Teal */
+.s8 .section-pill .dot { background: #00c8c8; box-shadow: 0 0 6px #00c8c8; }
+.s8 .narrative-body { border-top-color: #00c8c8; }
+.nav-pill[data-section="s8"].active { background: #001a1a; border-color: #006a6a; color: #fff; }
+
+/* 09 — Rosa/Magenta */
+.s9 .section-pill .dot { background: #e040b0; box-shadow: 0 0 6px #e040b0; }
+.s9 .narrative-body { border-top-color: #e040b0; }
+.nav-pill[data-section="s9"].active { background: #1a001a; border-color: #8a008a; color: #fff; }
+
+/* 10 — Dorado amarillo */
+.s10 .section-pill .dot { background: #d4aa00; box-shadow: 0 0 6px #d4aa00; }
+.s10 .narrative-body { border-top-color: #d4aa00; }
+.nav-pill[data-section="s10"].active { background: #1a1500; border-color: #7a6000; color: #fff; }
+
+
+/* ─── proyecto:cortexia explainer-theme.css ─── */
+/* cortexia.css — overrides de tokens del proyecto cortexia.
+ * Heredado del DESIGN.md de cortexia (BG dark purple, flame #F58A2E como hero único).
+ * Carga DESPUÉS de base.css y section-palette.css para sobrescribir vars.
+ */
+
+:root {
+  --bg: #15082a;
+  --card-bg: #22143c;
+  --card-border: #3d2762;
+  --card-hover: #2d1a4e;
+  --text: #dcc8f0;
+  --text-muted: #a89bc4;
+  --text-dim: #6e5e8a;
+  --nav-bg: #1a0e30;
+  --nav-border: #3d2762;
+
+  --flame: #f58a2e;
+  --flame-soft: rgba(245,138,46,0.15);
+
+  /* Hero gradient — flame + magenta + cyan del icon cortexia */
+  --hero-grad-1: #f58a2e;
+  --hero-grad-2: #e83c8e;
+  --hero-grad-3: #3db8c9;
+
+  /* Paleta diagram-mermaid — los 5 lóbulos del cerebro cortexia rotan por nodo.
+   * Constraint "máx 2 accents + flame por pieza" del DESIGN.md se relaja en diagramas:
+   * el diagrama ES la pieza que muestra el sistema multi-color como totalidad. */
+  --diagram-accent-1: #f58a2e;   /* flame — protagonista */
+  --diagram-accent-2: #e83c8e;   /* magenta — tensión */
+  --diagram-accent-3: #3db8c9;   /* cyan — sistema */
+  --diagram-accent-4: #9c7ae4;   /* purple-bright — sinapsis */
+  --diagram-accent-5: #fcc93a;   /* yellow — veta de oro */
+
+  /* Tipografía override del DESIGN.md de cortexia: Quicksand display, Inter body */
+  --font-display: 'Quicksand', 'Syne', system-ui, sans-serif;
+  --font-body: 'Inter', 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'DM Mono', ui-monospace, monospace;
+}
+
+/* Override del CTA flame button para cortexia (texto sobre flame) */
+.cta-button {
+  color: #15082a;
+}
+.cta-block {
+  background: linear-gradient(135deg, #f58a2e 0%, #e83c8e 100%);
+}
+
+/* Stat-num en flame para cortexia */
+.stat-num { color: var(--flame); }
+.point-num { color: var(--flame); }
+.quote-text em { color: var(--flame); }
+
+/* ─── Cortexia readability overrides (2026-05-08) ───────────────────────
+ * 3 ajustes para reducir fatiga visual en cuerpos grandes:
+ *   1. Títulos H2 de sección — color más suave + line-height aireado
+ *   2. Bold dentro de body_md — color flame para distinción real frente al cuerpo
+ *   3. Body de narrative y points-list — line-height incrementado en cuerpos largos
+ */
+
+/* (1) Section titles — drop brightness + breathing room */
+.section-header h2 {
+  color: #c4afde;
+  line-height: 1.18;
+  letter-spacing: -1.5px;
+}
+
+/* (1b) Hero title — el engine usa line-height 0.85 que corta descenders
+ *      (cola de la "g", "p", "y") en fuentes display tipo Quicksand.
+ *      Subimos a 1.0 + padding-bottom defensivo por si el background-clip
+ *      text del gradient recorta la última línea. */
+.hero-title {
+  line-height: 1.0;
+  padding-bottom: 0.12em;
+  /* Cap de ancho — el hero del engine no tiene max-width, así que en pantallas
+   * anchas el título se desparrama a todo el viewport. Lo limitamos a 1200px
+   * centrado + bajamos el clamp de tamaño. (Fix global pendiente en el engine.) */
+  font-size: clamp(44px, 6vw, 76px);
+  letter-spacing: -3px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* (2) Bold dentro de body_md usa flame para diferenciación clara
+ *     (antes ambos cuerpo y bold compartían tonos cercanos al off-white,
+ *      lo que hacía ilegible el énfasis).
+ *     Peso 500 — el contraste con cuerpo 100 ya es dramático con 400 puntos
+ *     de delta; subir a 700 sobrecarga la jerarquía. */
+.narrative-body strong,
+.point-text strong,
+.compare-side p strong,
+.compare-side ul li strong {
+  color: var(--flame);
+  font-weight: 500;
+}
+
+/* (3) Cuerpos largos con más respiración vertical + tamaño levemente reducido
+ *     + peso ULTRA-LIGERO (100) para descansar el ojo. Bold queda en 700,
+ *     así el contraste de énfasis es dramático.
+ *     Aplica a: narrative-body, points-list, compare-side, y a las listas
+ *     markdown (ul/li) que viven dentro de esos cuerpos. */
+.narrative-body p {
+  font-size: 14.5px;
+  line-height: 1.85;
+  margin-bottom: 18px;
+  font-weight: 300;
+}
+.narrative-body ul {
+  margin-bottom: 18px;
+  padding-left: 4px;
+}
+.narrative-body ul li {
+  font-size: 13.5px;
+  line-height: 1.85;
+  margin-bottom: 12px;
+  padding-left: 14px;
+  position: relative;
+  font-weight: 300;
+}
+.narrative-body ul li::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  top: -2px;
+  color: var(--flame);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* points-list — mismo tratamiento. Selector explícito sobre el <p> interno
+ * porque el render envuelve el body_md en <p> y el navegador a veces no
+ * hereda font-weight al re-cachear. */
+.point-text,
+.point-text p,
+.point-text li {
+  font-size: 13.5px;
+  line-height: 1.85;
+  font-weight: 300;
+}
+.point-item {
+  padding: 22px 24px;
+}
+
+/* compare-side — bullets con respiración real */
+.compare-side {
+  padding: 30px 28px;
+}
+.compare-side p {
+  font-size: 13.5px;
+  line-height: 1.8;
+  margin-bottom: 14px;
+  font-weight: 300;
+}
+.compare-side ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.compare-side ul li {
+  font-size: 13.5px;
+  line-height: 1.8;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  padding-left: 14px;
+  position: relative;
+  font-weight: 300;
+}
+.compare-side ul li:last-child { margin-bottom: 0; }
+.compare-side ul li::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  top: -2px;
+  color: var(--flame);
+  font-size: 18px;
+  font-weight: 700;
+}
+.compare-side ul li strong {
+  color: var(--flame);
+  font-weight: 700;
+}
+
+/* (4) Aplicación universal del peso 100 a TODOS los cuerpos —
+ *     antes solo cubría 3 componentes, ahora cubre cards, glosario,
+ *     stats, prose, cualquier <p>/<li> de body audience-facing.
+ *     El bold dentro de cualquiera mantiene el override flame + 500. */
+.card p,
+.card ul li,
+.glossary-entry p,
+.glossary-entry .glossary-body,
+.prose p,
+.prose ul li,
+.cta-block .cta-body,
+.stat-pill,
+.compact-card p,
+.compact-card ul li {
+  font-weight: 300;
+}
+
+/* Bold flame consistente en todo lo nuevo */
+.card p strong,
+.card ul li strong,
+.glossary-entry strong,
+.prose strong,
+.compact-card strong {
+  color: var(--flame);
+  font-weight: 500;
+}
+
+/* (5) CONTRASTE — regla universal de awareness de background.
+ *     Cuando un elemento usa el `pop` gradient (cálido: flame→magenta→cyan)
+ *     dentro de un container que YA usa background cálido (cta-block tiene
+ *     gradient flame→magenta), la parte naranja del pop se evapora contra
+ *     el bg. Solución: dentro de containers cálidos, override `pop` a una
+ *     paleta fría/oscura que contraste el warm gradient.
+ *     Aplica a cta-block (warm gradient) y cualquier futuro container con
+ *     bg cálido. */
+.cta-block .pop {
+  background: linear-gradient(135deg, #1a0e30 0%, #3d2762 50%, #6e5e8a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+/* Si el cta-block tuviera body con strong flame, también re-colorear */
+.cta-block strong {
+  color: #1a0e30;
+  font-weight: 600;
+}

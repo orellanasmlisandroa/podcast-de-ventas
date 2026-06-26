@@ -1,0 +1,430 @@
+plan_version: 2
+project: cortexia
+title: "El podcast de ventas — aperitivo de la Semana 10: coaches y podcasts hechos con el conocimiento real de los expertos"
+slug: podcast-de-ventas
+display_title: "Podcast de ventas"
+language: es-neutro-tuteo
+modal_language: es-neutro-tuteo
+audience_facing: true
+status: approved
+created_at: 2026-06-22
+approved_at: 2026-06-22
+source:
+  kind: md
+  path: DOCS/SOURCE_MATERIAL/cortexia-week10/ (_guia_lunes_en_vivo · _yt_podcasts · _yt_crear_propio_rag · _yt_canal_ideas)
+  cleaned_at: 2026-06-22
+  attribution_in_output: true   # el dueño pidió nombrar/embeber canales reales como ejemplo en vivo (sección los-gigantes)
+promise: "Por qué esta semana puedes construir algo único — coaches y podcasts hechos con el conocimiento real de los expertos — cuando casi todo el mundo solo arma chats genéricos. Con la prueba de que el mercado tiene dinero, y el adelanto de cómo se vende."
+reward: "R.4 — Resuelve la duda que cargas: ¿hay dinero real en esto, o es otra moda? La pieza lo prueba con cifras y muestra el camino único que casi nadie conoce."
+earworm: "Todos pueden poner un chat. Casi nadie puede poner un coach hecho de fuentes reales."
+
+sections:
+
+  - id: nav
+    component: nav-pills
+    slots:
+      label_text: "Ir a"
+      pills:
+        - { section_id: hero,         section_theme: s10, label: "00 La ola" }
+        - { section_id: la-ola,       section_theme: s2,  label: "01 Por qué ahora" }
+        - { section_id: la-prueba,    section_theme: s3,  label: "02 La prueba dura" }
+        - { section_id: y-vende,      section_theme: s4,  label: "03 Y además vende" }
+        - { section_id: los-gigantes, section_theme: s3,  label: "04 Ejemplos reales" }
+        - { section_id: lo-unico,     section_theme: s5,  label: "05 La diferencia" }
+        - { section_id: el-coach,     section_theme: s9,  label: "06 El corazón" }
+        - { section_id: ejemplos,     section_theme: s6,  label: "07 Ejemplos" }
+        - { section_id: el-dinero,    section_theme: s7,  label: "08 El dinero" }
+        - { section_id: esta-semana,  section_theme: s8,  label: "09 Esta semana" }
+        - { section_id: la-escalera,  section_theme: s1,  label: "10 La escalera" }
+        - { section_id: cita,         section_theme: s9,  label: "11 La frase" }
+        - { section_id: la-tarea,     section_theme: s8,  label: "12 Tu tarea" }
+        - { section_id: cta,          section_theme: s10, label: "13 Cierre" }
+
+  - id: hero
+    component: hero-gradient
+    theme: s10
+    slots:
+      eyebrow: "CORTEXIA 777 · LUNES EN VIVO · SEMANA 10"
+      super: "El aperitivo de todo lo que armamos esta semana"
+      title: "El podcast ya no es un hobby. Es un <span class=\"pop\">activo que vende</span>"
+      tagline: "Esta semana no vas a hacer 'otro podcast con IA'. Vas a aprender a construir algo que casi nadie sabe hacer: coaches y podcasts hechos con el conocimiento real de los expertos — y a venderlos. Esto de hoy es solo el adelanto."
+      stat_pills:
+        - "<b>~$2.86 mil millones</b> en publicidad de podcast en 2025"
+        - "<b>584–672 millones</b> de oyentes al mes en el mundo"
+        - "<b>67%</b> compró algo por una recomendación de podcast"
+
+  - id: la-ola
+    component: section-narrative
+    theme: s2
+    slots:
+      num: "01"
+      pill_label: "POR QUÉ AHORA"
+      title: "La ola <span class=\"pop\">ya rompió</span>"
+      subtitle: "No es una moda que viene. Es una tendencia de fondo que ya cambió el hábito de cientos de millones de personas."
+      body_md: |
+        El podcast ya explotó. Hoy vive donde tú ya publicas — en YouTube — y la gente lo escucha como antes escuchaba la radio: todos los días, con confianza. Eso dejó de ser un pasatiempo y se volvió un canal serio para vender.
+
+        Y lo mejor: la barrera técnica desapareció. Lo que antes pedía un estudio y semanas de edición, hoy lo hacen herramientas gratuitas de IA como NotebookLM. La pregunta ya no es *si se puede* — es **quién lo va a hacer primero**.
+    notes: |
+      ## Por qué hablamos de una ola y no de una moda
+
+      #### Analogía — el surfista que se quedó en la arena
+
+      Dos personas en la playa ven venir la misma ola grande. Una se queda sentada diciendo "espero a ver si rompe bien antes de meterme". La otra ya está remando cuando la ola todavía es una línea en el horizonte. Cuando por fin rompe, solo una la surfea; la otra apenas se moja los pies con la espuma que sobró. Con el podcast pasa igual: la ola ya está rompiendo, y el que rema ahora es el que se la lleva.
+
+      #### Moda contra tendencia de fondo
+
+      Una moda sube y baja rápido. Una tendencia de fondo cambia el hábito de millones y se queda años. El podcast ya cruzó esa línea: la gente lo escuchó, le tomó el gusto y lo metió en su día. Cuando algo deja de ser moda y se vuelve hábito, deja de ser arriesgado — y ese es el momento justo para entrar.
+
+  - id: la-prueba
+    component: stat-row
+    theme: s3
+    slots:
+      stats:
+        - { num: "~$2.86 mil M", label: "PUBLICIDAD DE PODCAST EN 2025 (+17.6%)" }
+        - { num: "~$5 mil M", label: "PROYECCIÓN 2026 SEGÚN DELOITTE (+20%)" }
+        - { num: "584–672 M", label: "OYENTES AL MES EN EL MUNDO" }
+        - { num: "55%", label: "DE EE.UU. ESCUCHA CADA MES (~158 M)" }
+        - { num: "33%", label: "YOUTUBE, LA PLATAFORMA #1 DE PODCAST" }
+    notes: |
+      ## Cómo leer estos cinco números
+
+      #### Analogía — el termómetro antes de cruzar el río
+
+      Antes de cruzar un río, alguien con experiencia no se tira confiando en la suerte: mide la profundidad, la corriente y la temperatura. Esas medidas le dicen si el río es seguro o si lo arrastra. Estas cinco cifras son el termómetro del mercado del podcast — y todas apuntan a lo mismo: el agua está buena.
+
+      #### Qué te dice cada número
+
+      Los dos primeros son **dinero real** que ya se mueve en publicidad, y la proyección de que crece todavía más. Los dos del medio son **la cantidad de gente** que escucha: cientos de millones al mes. Y el último es el más importante para ti, porque te dice **dónde** está esa gente: en YouTube, justo donde ya sabes publicar.
+
+  - id: y-vende
+    component: section-cards
+    theme: s4
+    slots:
+      num: "02"
+      pill_label: "EL ORO QUE CASI NADIE NOMBRA"
+      title: "Y además, <span class=\"pop\">vende</span>"
+      subtitle: "El tamaño del mercado motiva. Lo que de verdad convierte al podcast en una máquina de ventas son las cifras de confianza y compra."
+      cards:
+        - num: "2.1"
+          icon: "🛒"
+          title: "67% compró"
+          body: "Dos de cada tres oyentes compraron algo por una recomendación que escucharon en un podcast. No es atención que se olvida."
+        - num: "2.2"
+          icon: "🔗"
+          title: "72% fue, 62% compró"
+          body: "El 72% visitó el sitio del anunciante después de escucharlo, y el 62% terminó comprando. Empuja al siguiente paso."
+        - num: "2.3"
+          icon: "🤝"
+          title: "63% confía más"
+          body: "Al conductor de un podcast se le confía más que a la televisión, la radio o los famosos de las redes. La confianza es lo más caro de comprar."
+        - num: "2.4"
+          icon: "⚡"
+          title: "2 a 3 veces más atención"
+          body: "Los anuncios dentro de un podcast logran de 2 a 3 veces más atención que un aviso común. La gente no los salta: los escucha."
+    notes: |
+      ## Por qué la confianza pesa más que el alcance
+
+      #### Analogía — el consejo del vecino contra el cartel de la carretera
+
+      Necesitas un plomero. Por un lado, un cartel enorme en la carretera con un número. Por el otro, tu vecino de toda la vida que te dice "llama a este, me arregló la cocina y quedó perfecto". Casi siempre llamas al del vecino, aunque el cartel sea más grande. El podcast funciona como ese vecino: te habla al oído, con calma, y por eso le crees.
+
+      #### Atención prestada, no robada
+
+      Casi toda la publicidad interrumpe, y tú la saltas en cuanto puedes. El podcast es lo contrario: la persona eligió escuchar y te presta los oídos un buen rato. Esa atención voluntaria más la confianza son justo lo que un negocio necesita para vender.
+
+  - id: los-gigantes
+    component: section-cards
+    theme: s3
+    slots:
+      num: "03"
+      pill_label: "EJEMPLOS REALES"
+      title: "Del gigante a la <span class=\"pop\">IA sin rostro</span>"
+      subtitle: "No hay que adivinar si funciona. Arriba, un gigante que muestra el techo. Abajo, dos podcasts hechos con IA y sin dar la cara, creciendo ahora mismo en un nicho simple — justo lo que tú vas a construir."
+      cards:
+        - num: "3.1"
+          icon: "🎙"
+          title: "The Diary of a CEO"
+          body: "<a href=\"https://www.youtube.com/watch?v=9BDmC5u_MLE\" target=\"_blank\" rel=\"noopener\" style=\"display:block;position:relative;width:100%;aspect-ratio:16/9;margin-bottom:12px;border-radius:10px;overflow:hidden\"><img src=\"https://i.ytimg.com/vi/9BDmC5u_MLE/hqdefault.jpg\" alt=\"Episodio de The Diary of a CEO en YouTube\" loading=\"lazy\" style=\"width:100%;height:100%;object-fit:cover;display:block\"><span style=\"position:absolute;inset:0;display:flex;align-items:center;justify-content:center\"><span style=\"width:54px;height:38px;background:#e60000;border-radius:9px;display:flex;align-items:center;justify-content:center\"><span style=\"border-style:solid;border-width:9px 0 9px 16px;border-color:transparent transparent transparent #fff\"></span></span></span></a>Entrevistas premium que se volvieron una marca. <strong>La pieza que copiamos:</strong> no vive de la publicidad, vive de la comunidad y la membresía que construye alrededor. <a href=\"https://www.youtube.com/@TheDiaryOfACEO\" target=\"_blank\" rel=\"noopener\">Ver en YouTube →</a>"
+        - num: "3.2"
+          icon: "🤖"
+          title: "Podcast con IA, sin dar la cara"
+          body: "<a href=\"https://www.youtube.com/watch?v=VJNAupM5nXE\" target=\"_blank\" rel=\"noopener\" style=\"display:block;position:relative;width:100%;aspect-ratio:16/9;margin-bottom:12px;border-radius:10px;overflow:hidden\"><img src=\"https://i.ytimg.com/vi/VJNAupM5nXE/hqdefault.jpg\" alt=\"Podcast para aprender inglés hecho con IA en YouTube\" loading=\"lazy\" style=\"width:100%;height:100%;object-fit:cover;display:block\"><span style=\"position:absolute;inset:0;display:flex;align-items:center;justify-content:center\"><span style=\"width:54px;height:38px;background:#e60000;border-radius:9px;display:flex;align-items:center;justify-content:center\"><span style=\"border-style:solid;border-width:9px 0 9px 16px;border-color:transparent transparent transparent #fff\"></span></span></span></a>Un podcast para aprender inglés, hecho con IA y sin presentador a cámara. <strong>La pieza que copiamos:</strong> no necesitas ser famoso ni grabarte — eliges un nicho simple y la IA hace la voz. <a href=\"https://www.youtube.com/@EnglishEasyPractice\" target=\"_blank\" rel=\"noopener\">Ver en YouTube →</a>"
+        - num: "3.3"
+          icon: "🌱"
+          title: "El mismo nicho, otra vez"
+          body: "<a href=\"https://www.youtube.com/watch?v=F6nsDqXA1CY\" target=\"_blank\" rel=\"noopener\" style=\"display:block;position:relative;width:100%;aspect-ratio:16/9;margin-bottom:12px;border-radius:10px;overflow:hidden\"><img src=\"https://i.ytimg.com/vi/F6nsDqXA1CY/hqdefault.jpg\" alt=\"Otro podcast para aprender inglés hecho con IA en YouTube\" loading=\"lazy\" style=\"width:100%;height:100%;object-fit:cover;display:block\"><span style=\"position:absolute;inset:0;display:flex;align-items:center;justify-content:center\"><span style=\"width:54px;height:38px;background:#e60000;border-radius:9px;display:flex;align-items:center;justify-content:center\"><span style=\"border-style:solid;border-width:9px 0 9px 16px;border-color:transparent transparent transparent #fff\"></span></span></span></a>Otro canal con la misma idea: inglés fácil, hecho con IA. <strong>La pieza que copiamos:</strong> si el nicho funciona para varios, funciona para ti — tomas un micro-nicho y lo haces tuyo. <a href=\"https://www.youtube.com/@SpeakEnglishWithClass\" target=\"_blank\" rel=\"noopener\">Ver en YouTube →</a>"
+    notes: |
+      ## Qué aprendemos de estos ejemplos
+
+      #### Analogía — los planos de casas que ya están de pie
+
+      Antes de construir tu casa, no tienes que adivinar si el diseño aguanta: miras casas del mismo estilo que ya llevan años de pie y aprendes de ellas. Estos canales son esas casas ya construidas. No los copias ladrillo por ladrillo — tomas el plano que funciona y lo adaptas a tu terreno.
+
+      #### Del techo al primer escalón
+
+      Mezclamos a propósito dos alturas. Arriba va un gigante para que veas el techo: hasta dónde llega un podcast cuando se vuelve una marca con comunidad y miembros que pagan. Abajo van dos podcasts hechos con IA, sin presentador a cámara, sobre algo tan simple como aprender inglés — y están creciendo ahora mismo.
+
+      El gigante te muestra el sueño; los de IA te muestran que se puede empezar hoy, sin cámara, sin fama y sin equipo. Tú no copias la fama: tomas el formato, eliges un micro-nicho y lo armas con IA y fuentes reales.
+
+  - id: lo-unico
+    component: section-compare
+    theme: s5
+    slots:
+      num: "04"
+      pill_label: "LA DIFERENCIA"
+      title: "El camino de casi todos, y el <span class=\"pop\">tuyo</span>"
+      subtitle: "Casi todo el mundo construye lo mismo y termina compitiendo por precio. Esta semana aprendes el camino que casi nadie conoce."
+      left:
+        tag: "LO QUE HACE CASI TODO EL MUNDO"
+        title: "Un chat más, igual a todos"
+        body_md: |
+          - **Pone un asistente de chat genérico** que responde con lo que cualquier IA ya sabe. Suena idéntico al de la competencia.
+          - **Hace podcasts sueltos** esperando vivir de la publicidad. Lento, incierto y cada vez más castigado.
+          - **Produce contenido genérico** que no se distingue de nada.
+          - **Compite por precio,** porque su producto lo arma cualquiera en cinco minutos.
+      right:
+        tag: "LO QUE VAS A HACER TÚ"
+        title: "Un coach único, hecho de fuentes reales"
+        body_md: |
+          - **Construyes un coach** que responde con el conocimiento real de los expertos del tema, y dice de dónde sale cada respuesta.
+          - **El mismo sistema produce** podcasts, Reels y videos. Una máquina de contenido, no una pieza suelta.
+          - **Lo conviertes en un producto** que vende y que un negocio paga con gusto.
+          - **Nadie te copia,** porque está hecho con fuentes que la competencia no tiene.
+    notes: |
+      ## Por qué lo único vale más que lo genérico
+
+      #### Analogía — preguntarle a un desconocido o al maestro del oficio
+
+      Imagina que tienes una duda de carpintería. Puedes preguntarle a un desconocido que leyó un poco de todo, o puedes preguntarle al maestro carpintero del barrio que lleva treinta años en el oficio. Los dos te contestan, pero solo uno te da la respuesta que de verdad funciona, con el truco que solo se aprende trabajando. Un chat de IA genérico es el desconocido. Un coach hecho con los videos de los maestros es el maestro carpintero.
+
+      #### La diferencia que la gente reconoce y paga
+
+      Hoy cualquiera pone un chat de IA, y todos suenan parecidos porque responden con el mismo conocimiento general de internet. Lo que se distingue — y se cobra — es un coach que habla con la voz, los ejemplos y el conocimiento de los que de verdad saben del tema. Eso no se copia pegando un chat común.
+
+  - id: el-coach
+    component: section-cards
+    theme: s9
+    slots:
+      num: "05"
+      pill_label: "EL CORAZÓN DE LA SEMANA"
+      title: "Coaches y podcasts hechos del <span class=\"pop\">conocimiento real</span>"
+      subtitle: "Tomas entre 50 y 100 videos de los maestros de un tema y los conviertes en algo vivo: un coach con el que se conversa, y una serie de podcasts. Todo nace de las fuentes, no de la imaginación de una IA."
+      cards:
+        - num: "5.1"
+          icon: "🎓"
+          title: "El coach desde los videos"
+          body: "Juntas decenas de videos de los expertos de un tema y armas un coach. La persona le pregunta y él responde con lo que esos expertos enseñaron, citando el video y el minuto exacto."
+        - num: "5.2"
+          icon: "🧭"
+          title: "No es IA genérica"
+          body: "Un asistente común responde con lo que toda IA sabe. El tuyo responde con fuentes reales y verificables. Esa es la diferencia que la gente reconoce."
+        - num: "5.3"
+          icon: "🎬"
+          title: "Una máquina de contenido"
+          body: "El mismo conocimiento sale en muchos formatos: una serie de podcasts por distintos ángulos, Reels, videos cortos y videos largos. Material promocional listo para cualquier empresa."
+        - num: "5.4"
+          icon: "🌐"
+          title: "Tu propio producto"
+          body: "Lo conviertes en tu plataforma: la gente entra, elige el coach del tema que le interesa, conversa con él y escucha sus podcasts. Tú cobras por el acceso."
+    notes: |
+      ## De un montón de videos a alguien con quien hablar
+
+      #### Analogía — el recetario de la abuela que ahora te contesta
+
+      Imagina el recetario de tu abuela: cuadernos llenos de recetas y trucos al margen. Está todo ahí, pero es un montón de papeles que tienes que revolver. Ahora imagina que el recetario te contesta cuando le preguntas — "abuela, ¿cuánto tiempo el arroz?" — y te responde con sus palabras y sus trucos. Eso es lo que pasa cuando metes los videos de un experto en un coach: el conocimiento deja de ser una pila de videos y se vuelve alguien a quien le puedes preguntar.
+
+      #### Una nota honesta sobre las fuentes
+
+      Lo más limpio es construir el coach con material que puedes usar: tus propios videos, los de tu cliente, o fuentes con permiso, y siempre citando de dónde sale cada respuesta. Así el producto es valioso y, además, está sobre terreno firme. Esa parte — qué se puede usar y cómo — la vemos con calma adentro.
+
+  - id: ejemplos
+    component: section-cards
+    theme: s6
+    slots:
+      num: "06"
+      pill_label: "PARA QUE LO VEAS CLARO"
+      title: "El mismo molde sirve para <span class=\"pop\">cualquier tema</span>"
+      subtitle: "El sistema es uno solo. Cambias el tema y el material, y vuelves a armar todo en otro nicho."
+      cards:
+        - num: "6.1"
+          icon: "🥑"
+          title: "Dieta keto"
+          body: "Reúnes los videos de los referentes de la dieta keto y armas un coach que responde dudas, más una serie de podcasts por ángulos: para principiantes, recetas, errores comunes, la parte de salud."
+        - num: "6.2"
+          icon: "🐕"
+          title: "Entrenamiento canino"
+          body: "Mismo molde: los videos de los mejores entrenadores se vuelven un coach que responde, y podcasts por tema — cachorros, ladridos, caminar con correa."
+        - num: "6.3"
+          icon: "🔁"
+          title: "Cualquier micro-nicho"
+          body: "Inmobiliaria, marketing local, finanzas, fitness, lo que sea. El sistema es el mismo; solo cambias el tema y las fuentes."
+    notes: |
+      ## Por qué un solo molde sirve para todo
+
+      #### Analogía — el molde de galletas
+
+      Un molde de galletas tiene una sola forma, pero con él haces galletas de chocolate, de vainilla, de avena, de lo que quieras. La forma no cambia; cambia la masa. Este sistema es ese molde: la forma de armar el coach y los podcasts es siempre la misma, y lo único que cambia es el tema y las fuentes que le pones adentro.
+
+      #### Lo aprendes una vez, lo repites mil
+
+      El valor de tener un molde es que el trabajo difícil lo haces una sola vez: entender cómo se arma. Después, cada nicho nuevo es repetir el mismo paso con otro material. Por eso, aprender esto una vez te abre la puerta a tantos temas como quieras tomar.
+
+  - id: el-dinero
+    component: section-cards
+    theme: s7
+    slots:
+      num: "07"
+      pill_label: "DE DÓNDE SALE EL DINERO"
+      title: "Cómo esto se vuelve <span class=\"pop\">dinero</span>"
+      subtitle: "No es teoría. Son los caminos concretos para cobrar — sin promesas de ganancia, solo las formas que existen."
+      cards:
+        - num: "7.1"
+          icon: "📦"
+          title: "Por paquete a un negocio"
+          body: "Tomas lo que un negocio ya tiene y le entregas su coach y sus podcasts armados. Cobras por el paquete completo, no por hora."
+        - num: "7.2"
+          icon: "🔄"
+          title: "Mes a mes"
+          body: "El negocio te paga todos los meses por mantener vivo el coach y producir contenido fresco. Un ingreso que se repite en vez de empezar de cero."
+        - num: "7.3"
+          icon: "🌐"
+          title: "Tu propio producto"
+          body: "Tu plataforma de coaches y podcasts. La gente paga por entrar, y cada miembro nuevo se suma sobre el anterior."
+        - num: "7.4"
+          icon: "🎯"
+          title: "Nichos que valen"
+          body: "Inmobiliaria, coaches, clínicas, negocios locales: lugares donde un solo cliente vale mucho y el trabajo se paga rápido."
+    notes: |
+      ## Por qué lo que se repite vale más que lo que se hace una vez
+
+      #### Analogía — el jardinero de una visita contra el del contrato mensual
+
+      Dos jardineros en el mismo barrio. El primero corta el pasto, cobra ese día y se va; la semana siguiente sale a buscar otra casa desde cero. El segundo firmó un contrato: pasa cada mes por las mismas diez casas y le pagan todos los meses, sin salir a buscar. Al cabo de un año, el primero sigue corriendo detrás del próximo pasto; el segundo tiene un ingreso que llega solo. Vender una pieza suelta es ser el primer jardinero. Tener un coach instalado o un producto propio es ser el segundo.
+
+      #### El dinero que se acumula
+
+      Cobrar una vez está bien para empezar. Pero el dinero serio aparece cuando lo que haces se queda trabajando y te paga otra vez el mes siguiente. Cada cliente o cada miembro se suma sobre el anterior, en vez de reiniciarse cada vez.
+
+  - id: esta-semana
+    component: section-narrative
+    theme: s8
+    slots:
+      num: "08"
+      pill_label: "LO QUE VIENE ESTA SEMANA"
+      title: "Esto es solo el <span class=\"pop\">aperitivo</span>"
+      subtitle: "Hoy te di el mapa: el qué y el porqué. El cómo lo bajamos a tierra esta semana, paso a paso."
+      body_md: |
+        Lo que viste hoy es la punta. Adentro, esta semana, desglosamos el cómo completo — juntar las fuentes, armar el coach, sacar los podcasts y los videos, y dejarlo todo listo para cobrar — módulo por módulo, para los miembros.
+
+        Y una parte la construyo en pantalla, en vivo, en **Eric en Acción** y **Sobre el Hombro**: me ves armar una pieza del sistema desde cero, por dentro, antes de que la hagas tú. Hoy abrimos el apetito; esta semana servimos el plato completo.
+    notes: |
+      ## Por qué hoy es solo el adelanto
+
+      #### Analogía — el tráiler y la película completa
+
+      Un buen tráiler no te cuenta la película entera: te muestra lo justo para que quieras verla. Te enseña de qué va, te engancha, y te deja con ganas del resto. Esta sesión en vivo es ese tráiler — te muestra el mundo completo de lo que se puede hacer. La película entera, escena por escena, es lo que pasa adentro durante la semana.
+
+      #### El qué y el porqué hoy, el cómo adentro
+
+      Hoy nos quedamos en el qué se puede construir y el porqué vale la pena. El cómo — el paso a paso real, las herramientas, las decisiones — es lo que se desarrolla a lo largo de la semana, con tiempo para hacerlo bien. Así nadie sale solo con la idea: sale sabiendo construirla.
+
+  - id: la-escalera
+    component: section-cards
+    theme: s1
+    slots:
+      num: "09"
+      pill_label: "LA ESCALERA DE PLATA"
+      title: "Mismo tema toda la semana. Cambia <span class=\"pop\">cuánto profundizas</span>"
+      subtitle: "Lo que cambia entre un nivel y otro no es el tema — es qué tan lejos lo llevas, y qué tanto puedes hacer con él."
+      cards:
+        - num: "9.1"
+          icon: "👁"
+          title: "El Observador"
+          body: "Te llevas el mapa: entiendes la oportunidad completa y pruebas el método básico con tus propias manos. Sales sabiendo que esto es real."
+        - num: "9.2"
+          icon: "🛠"
+          title: "El Aprendiz"
+          body: "Das el primer paso real: armas tu primer coach o podcast de práctica, de principio a fin. Pasas de entender a hacer."
+        - num: "9.3"
+          icon: "🎯"
+          title: "El Arquitecto"
+          body: "El curso completo: conviertes el método en un servicio que le cobras a negocios, con los paquetes, los prompts y el plan de acción. Pasas de hacer a vender."
+        - num: "9.4"
+          icon: "🏗"
+          title: "Toque de Midas"
+          body: "Montas la fábrica que escala y me ves armar el sistema desde cero, sobre el hombro. Pasas de vender uno a construir muchos."
+    notes: |
+      ## Para qué sirve subir de nivel
+
+      #### Analogía — los grados de la escuela
+
+      Nadie aprende a leer, escribir y resolver problemas el mismo día. Por eso la escuela tiene grados: primero reconoces las letras, después armas palabras, luego oraciones, y más adelante escribes una historia entera. Cada grado usa lo del anterior y agrega una capa. La escalera funciona igual: el mismo tema, pero cada nivel te lleva un grado más lejos.
+
+      #### El tema no cambia, la profundidad sí
+
+      Toda la semana se habla de lo mismo. Lo que cambia de un nivel a otro es cuánto bajas al detalle y qué tan lejos lo puedes llevar — de entenderlo, a hacerlo, a venderlo, a construir un sistema que se repite. Subir de nivel es seguir el mismo camino más adentro.
+
+  - id: cita
+    component: quote-editorial
+    theme: s9
+    slots:
+      quote: "Todos pueden poner un chat. Casi nadie puede poner un <em>coach hecho de fuentes reales</em>. Ahí está tu lugar."
+
+  - id: la-tarea
+    component: points-list
+    theme: s8
+    slots:
+      num: "10"
+      pill_label: "TU TAREA DE LA SEMANA"
+      title: "Lo único que tienes que hacer <span class=\"pop\">esta semana</span>"
+      subtitle: "No se aprende mirando. Se aprende armando uno. Empieza chico, pero empieza."
+      points:
+        - num: "01"
+          body_md: |
+            **Elige un tema o un negocio.** El que te apasione o uno real que conozcas. Uno solo, para enfocarte.
+        - num: "02"
+          body_md: |
+            **Junta un puñado de fuentes.** Unos cuantos videos de los que más saben de ese tema — lo que puedas usar, citando de dónde salen.
+        - num: "03"
+          body_md: |
+            **Arma tu primera pieza.** Un coach de práctica o un episodio de podcast, de principio a fin. La vía rápida con el kit, la vía libre con herramientas gratuitas.
+    notes: |
+      ## Por qué la tarea es hacer, no mirar
+
+      #### Analogía — la primera vez en bicicleta
+
+      Nadie aprendió a andar en bicicleta leyendo un manual ni viendo videos de otros pedaleando. Se aprende subiéndote una vez, tambaleándote, y descubriendo con el cuerpo cómo se mantiene el equilibrio. Esto es igual: la primera vez que armas un coach o un episodio entiendes en una tarde lo que mil explicaciones no te dan.
+
+      #### Empezar chico es la clave
+
+      La tarea es pequeña a propósito: uno solo. No se trata de hacer algo perfecto esta semana, se trata de cruzar la línea de "ya lo hice una vez". De ahí en adelante todo es repetir y mejorar.
+
+  - id: cta
+    component: cta-closing
+    theme: s10
+    slots:
+      title: "Esto <span class=\"pop\">empieza hoy</span>"
+      body: "Cada semana abrimos los secretos para ir más rápido, más barato y con más calidad usando IA — y para vender lo que tú mismo creas con ella. Plantillas, herramientas y recursos listos para usar, semana tras semana. Quedarte afuera te sale más caro que entrar."
+      signature: "Todos pueden poner un chat. Casi nadie puede poner un coach hecho de fuentes reales."
+      cta_text: "Te abro el sistema completo"
+      cta_href: "https://cortexia777.com"
+
+  - id: glosario
+    component: glossary
+    slots:
+      title: "Glosario"
+      subtitle: "Cuatro nombres en inglés que aparecen arriba, explicados en una frase."
+      entries:
+        - term: "NotebookLM"
+          en: "Google NotebookLM"
+          body_md: "Herramienta gratuita de Google. Le pegas documentos, enlaces o videos y te ayuda a entenderlos, resumirlos y convertirlos en otros formatos — entre ellos, un audio tipo podcast."
+        - term: "Audio Overview"
+          en: "Audio Overview (NotebookLM)"
+          body_md: "La función de NotebookLM que toma tus fuentes y genera una conversación tipo podcast entre dos voces, sin que tú grabes nada."
+        - term: "SaaS"
+          en: "Software as a Service"
+          body_md: "Software como servicio: un producto en la nube al que la gente entra pagando una suscripción, normalmente mes a mes. Tu plataforma de coaches sería un SaaS."
+        - term: "Reels"
+          en: "Instagram Reels"
+          body_md: "El formato de video corto y vertical de Instagram, parecido a los Shorts de YouTube. Sirve para sacar clips del podcast y atraer gente."
