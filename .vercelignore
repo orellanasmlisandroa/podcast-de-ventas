@@ -1,0 +1,6 @@
+# Excluir la fábrica (app Python local) del deploy estático de Vercel.
+# La fábrica corre solo en local (localhost:8000); Vercel solo sirve la presentación.
+factory/
+
+# Artefactos de desarrollo, no necesarios para el sitio público.
+_render_log.json
