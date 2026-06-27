@@ -8,6 +8,29 @@ from __future__ import annotations
 
 from .config import Config
 from .series import Episode
+from . import sources as sources_mod
+
+
+def _fuentes_block(ep: Episode, cfg: Config) -> str:
+    """Lista de fuentes a cargar en NotebookLM, con las URLs reales del usuario."""
+    lines = [f"- [ ] El guion de este episodio: `scripts/{ep.stem}.md`"]
+    src = sources_mod.load(cfg)
+    if sources_mod.is_configured(src):
+        if src.get("niche"):
+            lines.append(f"- [ ] *(Nicho: {src['niche']})*")
+        for url in src.get("youtube", []):
+            lines.append(f"- [ ] YouTube: {url}")
+        for url in src.get("website", []):
+            lines.append(f"- [ ] Sitio web: {url}")
+        for url in src.get("social", []):
+            lines.append(f"- [ ] Red social: {url}")
+        lines.append("- [ ] (Opcional) El `plan.yml` del proyecto como guía de estructura")
+    else:
+        lines.append("- [ ] El `plan.yml` del proyecto (conocimiento base de la serie)")
+        lines.append("- [ ] Los videos / documentos de los expertos del tema (los que puedas usar)")
+        lines.append("\n> Aún no configuraste tus fuentes. Hazlo en la pantalla de inicio de la app "
+                     "(nicho + URLs de YouTube, redes y sitio web) y este brief listará tus enlaces.")
+    return "\n".join(lines)
 
 
 def expected_audio_names(ep: Episode, cfg: Config) -> list[str]:
@@ -18,6 +41,7 @@ def render_brief(ep: Episode, cfg: Config) -> str:
     a, b = cfg.voice_a["name"], cfg.voice_b["name"]
     audio_name = f"{ep.stem}{cfg.audio_exts[0]}"
     kind = "tráiler" if ep.kind == "trailer" else "episodio"
+    fuentes = _fuentes_block(ep, cfg)
 
     # Prompt de personalización que se pega en NotebookLM (campo "Customize").
     # Mismo guion de dirección que usa la fábrica: tensión a dos voces en 8 movimientos.
@@ -53,9 +77,7 @@ def render_brief(ep: Episode, cfg: Config) -> str:
 Crea un cuaderno nuevo en https://notebooklm.google.com y carga **solo fuentes
 reales y permitidas** (ese es el diferencial del proyecto):
 
-- [ ] El guion de este episodio: `scripts/{ep.stem}.md`
-- [ ] El `plan.yml` del proyecto (conocimiento base de la serie)
-- [ ] Los videos / documentos de los expertos del tema (los que puedas usar)
+{fuentes}
 
 ## 2. Prompt de personalización (pégalo en "Customize")
 ```

@@ -83,6 +83,10 @@ class Config:
         return self.data_dir / "state.json"
 
     @property
+    def sources_path(self) -> Path:
+        return self.root / "sources.yaml"
+
+    @property
     def dashboard_path(self) -> Path:
         return self.data_dir / "dashboard.html"
 

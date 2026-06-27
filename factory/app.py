@@ -11,7 +11,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 
 from factory.config import Config, DEFAULT_CONFIG_PATH
-from factory import pipeline, state as state_mod
+from factory import pipeline, state as state_mod, sources as sources_mod
 
 app = FastAPI(title="Fábrica de Podcasts — CORTEXIA 777")
 api = app
@@ -158,6 +158,28 @@ def update_config(new_raw: dict):
         return {"status": "success"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error al escribir config.yaml: {str(e)}")
+
+@app.get("/api/sources")
+def get_sources(cfg: Config = Depends(get_config)):
+    data = sources_mod.load(cfg)
+    return {"sources": data, "configured": sources_mod.is_configured(data)}
+
+
+@app.put("/api/sources")
+def update_sources(new_sources: dict, cfg: Config = Depends(get_config)):
+    """Guarda nicho + URLs y reconstruye los briefs para que listen esas fuentes."""
+    try:
+        saved = sources_mod.save(cfg, new_sources)
+        st = pipeline.build_all(cfg)  # regenera guiones, briefs (con las URLs) y dashboard
+        return {
+            "sources": saved,
+            "configured": sources_mod.is_configured(saved),
+            "state": st,
+            "summary": state_mod.summarize(st),
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al guardar las fuentes: {str(e)}")
+
 
 @app.get("/audio/{filename}")
 def serve_audio(filename: str, cfg: Config = Depends(get_config)):
