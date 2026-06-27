@@ -4,3 +4,7 @@ factory/
 
 # Artefactos de desarrollo, no necesarios para el sitio público.
 _render_log.json
+
+# Config de Railway (deploy de la fábrica), irrelevante para el sitio estático.
+Dockerfile
+.dockerignore
