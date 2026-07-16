@@ -11,8 +11,17 @@ samira/
 ├── index.html      Estructura y contenido de todas las secciones
 ├── styles.css      Estilos (paleta y tipografías editables arriba del archivo)
 ├── script.js       Galería, lightbox, navegación y animaciones
-└── img/            Fotografías (hero.jpg + samira-01…16.jpg)
+├── img/            Fotografías (hero.jpg + samira-01…16.jpg)
+└── samira.html     Versión de UN SOLO ARCHIVO (CSS, JS y fotos incrustados)
 ```
+
+## Versión de un solo archivo (para compartir)
+
+`samira.html` es una copia autocontenida: lleva el CSS, el JavaScript y las
+fotos incrustados dentro del propio archivo (~6 MB). No necesita la carpeta
+`img/` ni un servidor: se abre con doble clic y se puede enviar por correo o
+WhatsApp tal cual. Para regenerarlo tras editar los archivos fuente, usa el
+script `build_single.py` (requiere `pip install Pillow`).
 
 ## Cómo verlo
 
