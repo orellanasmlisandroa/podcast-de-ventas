@@ -46,3 +46,19 @@ python3 -m http.server 8000
 
 Al ser 100% estático, funciona en cualquier hosting: GitHub Pages, Netlify,
 Vercel, o subiendo la carpeta a cualquier servidor. Es responsive y ligero.
+
+### Vercel
+
+El sitio vive en la subcarpeta `samira/`, así que al importar el repo en
+Vercel hay que fijar **Root Directory = `samira`** (Framework Preset: *Other*,
+sin build command ni output directory). El archivo `vercel.json` incluido
+activa URLs limpias y cachea las fotos de `img/` durante un año para que
+cargue más rápido al compartirlo.
+
+Alternativa por CLI:
+
+```bash
+npm i -g vercel
+cd samira
+vercel --prod
+```
