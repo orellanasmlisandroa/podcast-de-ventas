@@ -1,0 +1,47 @@
+name: Deploy Samira site to GitHub Pages
+
+# Publica el contenido de la carpeta samira/ en GitHub Pages.
+# Se ejecuta al hacer push a main (o manualmente desde la pestaña Actions).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "samira/**"
+      - ".github/workflows/deploy-samira-pages.yml"
+  workflow_dispatch:
+
+# Permisos necesarios para desplegar en Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Un solo despliegue a la vez; cancela los anteriores en curso
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Pages (activa Pages si aún no lo está)
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Subir la carpeta samira/ como artefacto del sitio
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./samira
+
+      - name: Desplegar a GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

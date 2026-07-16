@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bienvenida, Samira · Reportaje de nacimiento</title>
+  <meta name="description" content="Bienvenida, Samira. Nacida el 14 de julio de 2026 en Plainsboro, New Jersey. Un reportaje de nacimiento con luz natural y momentos auténticos." />
+
+  <!-- Open Graph: para que se vea bonito al compartir por WhatsApp / redes -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Bienvenida, Samira" />
+  <meta property="og:description" content="Nacida el 14 de julio de 2026 · Plainsboro, New Jersey, US" />
+  <meta property="og:image" content="img/hero.jpg" />
+  <meta name="theme-color" content="#f4e3e0" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVEGACIÓN
+       ============================================================ -->
+  <header class="nav" id="top">
+    <a href="#top" class="nav__brand">Samira</a>
+    <nav class="nav__links" aria-label="Navegación principal">
+      <a href="#historia">Historia</a>
+      <a href="#galeria">Galería</a>
+      <a href="#detalles">Detalles</a>
+      <a href="#trabajo">Fotografía</a>
+      <a href="#contacto" class="nav__cta">Contacto</a>
+    </nav>
+  </header>
+
+  <!-- ============================================================
+       1 · HERO / PORTADA
+       ============================================================ -->
+  <section class="hero" id="hero">
+    <div class="hero__overlay"></div>
+    <div class="hero__content">
+      <p class="hero__eyebrow">Reportaje de nacimiento</p>
+      <h1 class="hero__title">Bienvenida,<br /><em>Samira</em></h1>
+      <p class="hero__subtitle">
+        Nacida el 14 de julio de 2026<br />
+        Plainsboro, New Jersey · Estados Unidos
+      </p>
+      <a href="#galeria" class="btn btn--light hero__btn">Ver galería</a>
+    </div>
+    <a href="#historia" class="hero__scroll" aria-label="Desplázate hacia abajo">
+      <span></span>
+    </a>
+  </section>
+
+  <!-- ============================================================
+       2 · NUESTRA HISTORIA
+       ============================================================ -->
+  <section class="section historia" id="historia">
+    <div class="section__inner historia__grid">
+      <div class="historia__text">
+        <p class="eyebrow">Nuestra historia</p>
+        <h2 class="section__title">El día que todo cambió</h2>
+        <p>
+          Hay momentos que uno espera toda la vida y aun así llegan como una
+          sorpresa. El 14 de julio de 2026, en una mañana tibia de verano en
+          New Jersey, llegaste tú, Samira. Pequeña, perfecta y con una calma
+          que llenó la habitación de silencio y de luz.
+        </p>
+        <p>
+          Te tuve en brazos y entendí que la fotografía, mi oficio de tantos
+          años, por fin se volvía profundamente personal. Estas imágenes no son
+          un encargo: son la primera carta que te escribo, hecha de luz natural,
+          de gestos diminutos y de un amor que todavía no sé cómo nombrar.
+        </p>
+        <p class="signature">Con todo mi cariño — Papá</p>
+      </div>
+
+      <aside class="fotografo-card" aria-label="Datos del fotógrafo">
+        <p class="fotografo-card__label">Fotógrafo</p>
+        <h3 class="fotografo-card__name">Lisandro Orellana</h3>
+        <ul class="fotografo-card__list">
+          <li>
+            <span>Especialidad</span>
+            Fotografía de familia, maternidad y newborn
+          </li>
+          <li>
+            <span>Ubicación</span>
+            Plainsboro, New Jersey · US
+          </li>
+          <li>
+            <span>Estilo</span>
+            Documental, cálido y natural
+          </li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       3 · GALERÍA
+       ============================================================ -->
+  <section class="section galeria" id="galeria">
+    <div class="section__inner">
+      <p class="eyebrow eyebrow--center">Galería</p>
+      <h2 class="section__title section__title--center">Los primeros días de Samira</h2>
+      <p class="section__lead">
+        Una selección del reportaje: retratos de estudio, detalles diminutos y
+        los abrazos que la recibieron en el mundo.
+      </p>
+    </div>
+
+    <!-- El grid se rellena; cada figura abre el lightbox al hacer clic -->
+    <div class="gallery-grid" id="galleryGrid">
+      <!-- Las imágenes se insertan desde script.js para mantener el HTML limpio -->
+    </div>
+  </section>
+
+  <!-- ============================================================
+       4 · DETALLES DEL NACIMIENTO
+       ============================================================ -->
+  <section class="section detalles" id="detalles">
+    <div class="section__inner">
+      <p class="eyebrow eyebrow--center">Detalles del nacimiento</p>
+      <h2 class="section__title section__title--center">Ficha de un pequeño milagro</h2>
+
+      <div class="ficha">
+        <dl class="ficha__list">
+          <div class="ficha__item">
+            <dt>Nombre completo</dt>
+            <dd>Samira De la Cruz Orellana</dd>
+          </div>
+          <div class="ficha__item">
+            <dt>Fecha de nacimiento</dt>
+            <dd>14 de julio de 2026</dd>
+          </div>
+          <div class="ficha__item">
+            <dt>Lugar</dt>
+            <dd>Plainsboro, New Jersey · US</dd>
+          </div>
+          <div class="ficha__item">
+            <dt>Hora de nacimiento</dt>
+            <dd>12:05 AM</dd>
+          </div>
+          <div class="ficha__item">
+            <dt>Peso</dt>
+            <dd>8 libras <span class="ficha__conv">(3,6 kg)</span></dd>
+          </div>
+          <div class="ficha__item">
+            <dt>Talla</dt>
+            <dd>20 pulgadas <span class="ficha__conv">(51 cm)</span></dd>
+          </div>
+        </dl>
+        <p class="ficha__note">
+          Un pequeño gran milagro que llegó para llenarnos de luz.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       5 · SOBRE MI TRABAJO FOTOGRÁFICO
+       ============================================================ -->
+  <section class="section trabajo" id="trabajo">
+    <div class="section__inner trabajo__grid">
+      <div class="trabajo__text">
+        <p class="eyebrow">Sobre mi trabajo</p>
+        <h2 class="section__title">Momentos reales, luz honesta</h2>
+        <p>
+          Fotografío como quien escribe un diario: sin poses forzadas, dejando
+          que la escena respire. Trabajo con <em>luz natural</em>, un enfoque
+          <em>documental</em> y una obsesión sana por esos gestos auténticos que
+          cuentan la historia de una familia.
+        </p>
+        <p>
+          El reportaje de Samira nació de esa misma manera —observando, esperando
+          el instante— y así es como me gustaría fotografiar el tuyo.
+        </p>
+
+        <ul class="servicios">
+          <li>
+            <span class="servicios__num">01</span>
+            <div>
+              <h3>Sesiones newborn</h3>
+              <p>Los primeros días, con delicadeza y sin prisa.</p>
+            </div>
+          </li>
+          <li>
+            <span class="servicios__num">02</span>
+            <div>
+              <h3>Sesiones de maternidad</h3>
+              <p>La espera y el vínculo, capturados con serenidad.</p>
+            </div>
+          </li>
+          <li>
+            <span class="servicios__num">03</span>
+            <div>
+              <h3>Reportajes de familia</h3>
+              <p>Un día cualquiera que merece recordarse para siempre.</p>
+            </div>
+          </li>
+        </ul>
+
+        <a href="#contacto" class="btn btn--dark">Contactar para sesión</a>
+      </div>
+
+      <figure class="trabajo__figure">
+        <img src="img/samira-08.jpg" alt="Retrato en blanco y negro de un recién nacido en brazos" loading="lazy" />
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       6 · CONTACTO
+       ============================================================ -->
+  <section class="section contacto" id="contacto">
+    <div class="section__inner contacto__inner">
+      <p class="eyebrow eyebrow--center eyebrow--light">Contacto</p>
+      <h2 class="section__title section__title--center">Reservemos tu sesión</h2>
+      <p class="contacto__lead">
+        ¿Esperas un bebé o quieres un reportaje de familia? Escríbeme y
+        cuéntame tu historia. Estaré encantado de acompañarte.
+      </p>
+      <div class="contacto__actions">
+        <a href="mailto:lisandroosm@hotmail.com?subject=Reserva%20de%20sesión%20fotográfica" class="btn btn--light">Escribir un correo</a>
+        <a href="https://wa.me/12488903423?text=Hola%2C%20me%20gustar%C3%ADa%20reservar%20una%20sesi%C3%B3n" class="btn btn--ghost" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+      <p class="contacto__meta">Lisandro Orellana · Plainsboro, New Jersey, US</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PIE
+       ============================================================ -->
+  <footer class="footer">
+    <p>Samira · 14 · 07 · 2026 — Plainsboro, New Jersey, US</p>
+    <p class="footer__small">Hecho con cariño · <a href="#top">Volver arriba</a></p>
+  </footer>
+
+  <!-- ============================================================
+       LIGHTBOX (oculto por defecto, controlado desde script.js)
+       ============================================================ -->
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Imagen ampliada">
+    <button class="lightbox__close" id="lightboxClose" aria-label="Cerrar">&times;</button>
+    <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" aria-label="Anterior">&#8249;</button>
+    <figure class="lightbox__figure">
+      <img src="" alt="" id="lightboxImg" />
+      <figcaption id="lightboxCaption"></figcaption>
+    </figure>
+    <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" aria-label="Siguiente">&#8250;</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
